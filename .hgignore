@@ -17,6 +17,7 @@ syntax: glob
 # *.ps
 # *.eps
 # *.pdf
+main.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -33,3 +34,16 @@ syntax: glob
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+
+# glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+
+# makeidx
+*.idx
+*.ilg
+*.ind
+*.ist
