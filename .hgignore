@@ -35,15 +35,18 @@ main.pdf
 *.synctex.gz(busy)
 *.pdfsync
 
-# glossaries
+## glossaries
 *.acn
 *.acr
 *.glg
 *.glo
 *.gls
 
-# makeidx
+## makeidx
 *.idx
 *.ilg
 *.ind
 *.ist
+
+## Sublime Text
+*.sublime-workspace
