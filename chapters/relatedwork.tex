@@ -15,7 +15,7 @@ Geometry clipmaps is a good example of a highly scaleable system. The cost of do
 
 \subsection{Skyrim}
 
-Skyrim has two artificial intelligence systems under the name "Radiant" which are of some interest. The first, Radiant AI, is a system for establishing character personalities by assigning them tasks to perform on a daily basis. Characters also maintain a relationship with the player which affects their reactions to player actions. For example, characters who are friendly to the
+Skyrim has two artificial intelligence systems under the name ``Radiant'' which are of some interest. The first, Radiant AI, is a system for establishing character personalities by assigning them tasks to perform on a daily basis. Characters also maintain a relationship with the player which affects their reactions to player actions. For example, characters who are friendly to the
 player may invite the player to dinner if they barge into the character's house in the late evening, whereas characters which are not friendly may be upset by this occurrence.
 
 On the surface these systems seem promising but their implementations are heavily scripted and reliant on pre-existing planning and forethought. There are also a considerable number of character quirks which have given Skyrim a reputation for humorously dumb AI. \cite{skyrim_gamespy} \cite{skyrim_ign} \cite{gameinformer_skyrimtech} \cite{skyrim_nesmith_radiant} \cite{skyrim_whatsnew}
@@ -30,5 +30,5 @@ In general, the horizontal scale around the player is also quite limited. Withou
 and only allows players to see objects that are fairly nearby. Coupled with the previously discussed vertical limitations, the world (from a player's perspective) is actually quite small.
 
 In terms of implementation, Minecraft simply ignores scale as defined in this paper's introduction. There is only a single level of abstraction employed by
-the simulation engine - events which are nearby occur, and anything which is beyond that "nearby" threshold is cached out and entirely static until it is
+the simulation engine - events which are nearby occur, and anything which is beyond that ``nearby'' threshold is cached out and entirely static until it is
 revisited. This is entirely unsatisfactory from a world-simulation standpoint, and disqualifies Minecraft as an open-world game.
