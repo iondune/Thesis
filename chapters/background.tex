@@ -1,0 +1,47 @@
+
+\chapter{Background}
+
+\section{Computer Graphics}
+
+Computer Graphics is the process of using computers to produces images.
+In realtime applications, this involves using the GPU to rasterize triangles and other primitives.
+This process involves producing the geometry to be rendered and then performing a lighting calculation that determines the color of each facet.
+
+\section{Terrain Rendering}
+
+Terrain rendering is a particular subset of computer graphics that is concerned with producing images of terrain and the associated challenges of doing so.
+Terrain is important because it plays a large role in the appearance of outdoor scenes, but it is difficult because there is a tremendous amount of geometry.
+Terrain rendering methods usually focus on employing level-of-detail algorithms that make it possible to render close-up terrain in high detail and far-away terrain in low detail.
+Some of the main challenges these techniques aim to solve are creating the visual transitions between two areas that are rendered at different detail levels, and implementing a scheme to load in new data when the viewpoint changes.
+
+\section{Terrain Generation}
+
+There are many possible sources of terrain data.
+Many examples of acquired data are available.
+The USGS provides satellite data for much of the world's surface.
+Some game engines also use terrain editing tools that allow artists to sculpt terrain.
+
+However, it is also possible to implement algorithms that procedurally construct terrain using a variety of methods.
+The advantage of using procedurally generated terrain is that it is less time/effort intensive than artistically creating a terrain, and it does not require much or any disk space (as opposed to using acquired data which can be very large).
+
+Procedural terrain generation methodologies usually employ one or more of the follow techniques.
+\begin{itemize}
+\item Acquired data utilization
+\item Physical process simulations
+\item Fractal processes
+\item Noise algorithms
+\end{itemize}
+
+\subsection{Acquired data utilization}
+
+Some terrain generation processes utilize a small sample of real terrain data to construct a larger terrain surface, or a terrain that is similar to the original input data.
+Such processes can be as simple as using texture synthesis to create new patterns, or using noise algorithms to add detail to a low resolution sample.
+But some techniques employ more sophisticated processes. \cite{DEMsynthesis}
+
+\subsection{Physical process simulations}
+
+Real terrain is shaped by erosion, the gradual shaping of landscape caued by water, wind, and other forces.
+Some terrain generation techniques simulate these physical processes on a starter dataset to create realistic surfaces. \cite{hydrology}
+
+\subsection{Noise Algorithms}
+
