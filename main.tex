@@ -3,7 +3,6 @@
 \usepackage{etex}
 \usepackage[morefloats=125]{morefloats}
 \usepackage[hyphens]{url}
-\usepackage[breaklinks=true]{hyperref}
 \usepackage{subfig}
 \usepackage{graphicx}
 \usepackage{tabularx}
@@ -19,12 +18,29 @@
 \usepackage{float}
 \usepackage{listings}
 \usepackage{makecell}
-\usepackage[titletoc]{appendix}
+\usepackage{appendix}
 \usepackage{cleveref}
 \usepackage[]{algorithm2e}
+\usepackage{titlesec}
+\usepackage[breaklinks=true,hidelinks,pdfusetitle]{hyperref}
+\usepackage{ifthen}
 
 \makeindex
 \makeglossaries
+
+% Shrink the size of headers
+\titleformat{\chapter}[display]
+        {\normalfont\normalsize\centering}
+        {\ifthenelse{\equal{\thechapter}{A}}{APPENDICES\\[4.3ex]}{}\chaptertitlename\ \thechapter}
+        {0pt}{\normalsize\uppercase}
+\titlespacing*{\chapter}{0pt}{-20pt}{4.3ex plus .2ex}
+
+
+\titleformat*{\section}{\normalsize\bfseries}
+\titleformat*{\subsection}{\small\bfseries}
+\titleformat*{\subsubsection}{\small\bfseries}
+\titleformat*{\paragraph}{\small\bfseries}
+\titleformat*{\subparagraph}{\small\bfseries}
 
 \bibliographystyle{abbrv}
 
@@ -83,6 +99,11 @@
 
 \listoffigures
 
+% Add CHAPTER into table of contents.
+\addtocontents{toc}{%
+   \noindent CHAPTER
+}
+
 \end{frontmatter}
 
 \pagestyle{plain}
@@ -91,13 +112,18 @@
 
 \input{chapter-outline}
 
-\clearpage
-\begin{flushleft}
 \nocite{*}
 \bibliography{bibliography}
-\bibliographystyle{plain}
-\end{flushleft}
 
+% Indents Appendix in Table of Contents
+\makeatletter
+\addtocontents{toc}{\let\protect\l@chapter\protect\l@section}
+\makeatother
+
+% Hack to make Appendices to appear in Table of Contents
+\addtocontents{toc}{%
+   \noindent APPENDICES
+}
 \begin{appendices}
 \input{appendix-outline}
 \end{appendices}

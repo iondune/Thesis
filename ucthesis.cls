@@ -189,19 +189,19 @@
 % supporting the title and approval pages.
 %
 % \tableofcontents:
-\def\contentsname{Contents}
+\def\contentsname{TABLE OF CONTENTS}
 %                 ~~~~~~~~
 %
 % \listoffigures:
-\def\listfigurename{List of Figures}
+\def\listfigurename{LIST OF FIGURES}
 %                   ~~~~~~~~~~~~~~~
 %
 % \listoftables:
-\def\listtablename{List of Tables}
+\def\listtablename{LIST OF TABLES}
 %                  ~~~~~~~~~~~~~~
 %
 % \thebibliography:
-\def\bibname{Bibliography}
+\def\bibname{BIBLIOGRAPHY}
 %            ~~~~~~~~~~~~
 %
 % \theindex:
@@ -314,8 +314,8 @@
 % joint (e.g. UCSD/SDSU) degrees.
 
 % Set the font that will be used in the front matter headings
-\def\fmfont{\fontsize\@xiipt{14.5}\selectfont}
-\def\fmsmallfont{\fontsize\@xiipt{14pt}\selectfont}
+\def\fmfont{\fontsize\@xiipt{12}\selectfont}
+\def\fmsmallfont{\fontsize\@xiipt{12pt}\selectfont}
 
 
 % TITLE PAGE - Cal Poly (Added by Mark Barry 2/07)
@@ -340,7 +340,7 @@
 
     A Thesis \par
     presented to \par
-    the Faculty of California Polytechnic State University \par
+    the Faculty of California Polytechnic State University, \par
     \@campus
     
 		\addvspace{1.4in}    
@@ -351,7 +351,7 @@
 		of the Requirements for the Degree \par
 		\@degree~in~\@field
 		
-		\addvspace{0.8in}    
+		\addvspace{0.65in}    
 		
 		by \par
 		\@author \par
@@ -417,16 +417,16 @@ DATE SUBMITTED: \@degreemonth~\@degreeyear
 \par
 \vspace*{0.5in}
 
-\begin{tabular}{lp{3in}}
-TITLE:  &\@title      \par\\
+\begin{tabular}{lp{3.01in}}
+TITLE:  &\@title     \par\\
 AUTHOR: &\@author     \par\\
 DATE SUBMITTED: &\@degreemonth~\@degreeyear  \par\\
 
 \par\\
 
-COMMITTEE CHAIR:  &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@chair\end{flushleft}\end{minipage}  \par\\
-COMMITTEE MEMBER: &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@othermemberA\end{flushleft}\end{minipage}     \par\\
-COMMITTEE MEMBER: &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@othermemberB\end{flushleft}\end{minipage}     \par\\
+COMMITTEE CHAIR:  &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@chair\end{flushleft}\end{minipage}  \par\\\\
+COMMITTEE MEMBER: &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@othermemberA\end{flushleft}\end{minipage}     \par\\\\
+COMMITTEE MEMBER: &\begin{minipage}[t]{\columnwidth}\begin{flushleft}\@othermemberB\end{flushleft}\end{minipage}     \par\\\\
 \end{tabular}
 
 \end{alwayssingle}
@@ -603,7 +603,7 @@ Thesis Committee Chair
 %   This is implemented by \let'in \\ equal \@centercr.
 %
 \def\verse{\par\let\\=\@centercr
-  \list{}{\ssp\itemsep\z@ \itemindent -1.5em\listparindent \itemindent
+  \list{}{\itemsep\z@ \itemindent -1.5em\listparindent \itemindent
           \rightmargin\leftmargin\advance\leftmargin 1.5em}\item[]}
 \let\endverse\endlist
 
@@ -611,14 +611,14 @@ Thesis Committee Chair
 %   Fills lines
 %   Indents paragraph
 %
-\def\quotation{\par\list{}{\ssp\listparindent 1.5em
+\def\quotation{\par\list{}{\listparindent 1.5em
     \itemindent\listparindent
     \rightmargin\leftmargin\parsep \z@ plus\p@}\item[]}
 \let\endquotation=\endlist
 
 % QUOTE -- same as quotation except no paragraph indentation,
 %
-\def\quote{\par\list{}{\ssp\rightmargin\leftmargin}\item[]}
+\def\quote{\par\list{}{\rightmargin\leftmargin}\item[]}
 \let\endquote=\endlist
 
 % DESCRIPTION
@@ -808,7 +808,7 @@ Thesis Committee Chair
 % \@chapapp is initially defined to be '\chaptername'.  The \appendix
 % command redefines it to be '\appendixname'.
 %
-\def\@chapapp{\chaptername}
+\def\@chapapp{\uppercase{\chaptername}}
 
 %% Kludge to get multiple appendices lettered rather than numbered %%
 %% Added by John T. Whelan 1996 June 21                            %%
@@ -931,7 +931,7 @@ Thesis Committee Chair
   \if@twocolumn\@restonecoltrue\onecolumn\fi
   \chapter*{\contentsname
         \@mkboth{\uppercase{\contentsname}}{\uppercase{\contentsname}}}%
-  {\ssp\@starttoc{toc}}\if@restonecol\twocolumn\fi}
+  {\ssp\@starttoc{toc} \addtocontents{toc}{\hbox to \linewidth{\hfill Page}}}\if@restonecol\twocolumn\fi}
 
 \def\l@part#1#2{\addpenalty{-\@highpenalty}%
    \addvspace{2.25em plus\p@}% space above part line
@@ -956,9 +956,11 @@ Thesis Committee Chair
    \vskip 0.3em plus\p@   % space above chapter line
    \@tempdima 1.5em       % width of box holding chapter number
    \begingroup
+    
      \parindent \z@ \rightskip \@pnumwidth
      \parfillskip -\@pnumwidth
-     \bfseries                  % Boldface.
+    %  \bfseries                  % Boldface.
+    
      \leavevmode          % TeX command to enter horizontal mode.
       \advance\leftskip\@tempdima  %% added 5 Feb 88 to conform to
       \hskip -\leftskip            %% 25 Jan 88 change to \numberline
@@ -966,11 +968,13 @@ Thesis Committee Chair
      \penalty\@highpenalty %% added 24 May 89, suggested by J. Leichter
    \endgroup}
 
+\def\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
 \def\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
 \def\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
 \def\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 \def\l@paragraph{\@dottedtocline{4}{10em}{5em}}
 \def\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+
 
 % LIST OF FIGURES
 %
@@ -980,10 +984,11 @@ Thesis Committee Chair
   \chapter*{\listfigurename\@mkboth{\uppercase{\listfigurename}}%
 {\uppercase{\listfigurename}}}
    \addcontentsline{toc}{chapter}{\listfigurename}
-   {\ssp\@starttoc{lof}}\if@restonecol
+   {\ssp\@starttoc{lof} \addtocontents{lof}{\hbox to \linewidth{\hspace{1.5em}Figure\hfill Page}}}\if@restonecol
     \twocolumn\fi}
 
 \def\l@figure{\@dottedtocline{1}{1.5em}{3.2em}}
+
 
 % LIST OF TABLES
 %
@@ -1005,7 +1010,7 @@ Thesis Committee Chair
   \chapter*{\listtablename\@mkboth{\uppercase{\listtablename}}%
 {\uppercase{\listtablename}}}
    \addcontentsline{toc}{chapter}{\listtablename}
-   {\ssp\@starttoc{lot}}\if@restonecol
+   {\ssp\@starttoc{lot}\addtocontents{lot}{\hbox to \linewidth{\hspace{1.5em}Table\hfill Page}}}\if@restonecol
     \twocolumn\fi}
 
 
@@ -1043,10 +1048,10 @@ Thesis Committee Chair
     \usecounter{enumiv}%
     \let\p@enumiv\@empty
     \def\theenumiv{\arabic{enumiv}}}%
-    \def\newblock{\hskip .11em plus.33em minus.07em}%
+    \def\newblock{\hskip .11em plus.33em minus.07em }%
     \sloppy\clubpenalty4000\widowpenalty4000
-    \sfcode`\.=\@m}
-
+    \sfcode`\.=\@m
+    \raggedright}
 
 %% 91/08/26 FMI & RmS: introduced warning instead of error
 
@@ -1054,9 +1059,9 @@ Thesis Committee Chair
   \def\@noitemerr{\@warning{Empty `thebibliography' environment}}%
   \endlist}
 
-
-% \def\@biblabel#1{[#1]\hfill}  % Produces the label for a \bibitem[...]
+ \def\@biblabel#1{[#1]\hfill}  % Produces the label for a \bibitem[...]
                                 % command.
+
 % \def\@cite#1{[#1]}            % Produces the output of the \cite
                                 % command.
 
