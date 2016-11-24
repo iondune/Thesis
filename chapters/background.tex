@@ -81,4 +81,12 @@ In general you do not need to exactly double the frequency or halve the amplitud
 
 \subsubsection{Ridged Multifractal}
 
-An additional step can be added before summing each indiviual layer.
+An additional step can be added before summing each individual octave.
+By first taking the negated absolute value of each generated noise value, a ridged version of fractional brownian motion can be created.
+This technique is commonly referred to as Ridged multifractal, or RMf.
+
+\subsubsection{Distorted Noise}
+
+Ridged multifractal works on fractal brownian motion by modifying the range of each noise function, but it is also possible to modify the domain in a similar fashion.
+Using two additional FBM generators, an offset vector can be produced for each sample of the height generator.
+This technique helps break up the homogeneous appearance of generated terrain by shrinking and expanding different areas.
