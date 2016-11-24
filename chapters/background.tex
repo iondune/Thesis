@@ -78,6 +78,7 @@ The general approach is:
 \end{enumerate}
 
 In general you do not need to exactly double the frequency or halve the amplitude each octave, but can fine tune these values e.g. by multiplying the frequency by 1.2 and the amplitude by 0.3.
-More advanced terrain generation techniques build upon FBM by applying some additional operation to the noise algorithm at each octave,
-such as using the absolute value of the noise to produce sharp ridges,
-or a more sophistaced computation to simulate the effects of erosion.
+
+\subsubsection{Ridged Multifractal}
+
+An additional step can be added before summing each indiviual layer.
