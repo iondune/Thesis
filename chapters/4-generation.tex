@@ -56,4 +56,17 @@ The exact size, shape, and shoreline distance of the cliffs are influenced by ad
   \label{fig:beach_cliffs}
 \end{figure}
 
-\subsubsection{Hills and Mountains}
+\subsubsection{Hills, Mountains, Snowpeaks}
+
+Hills, Mountains, and Snowpeaks all use a custom version of a Ridged Multi-Fractal generator.
+
+For the first two octaves of noise, a standard gradient noise sample is used instead of the ridged version.
+This helps reduce the sharpness of some peaks and hides some unnatural artifacts that sometimes occur.
+
+In addition, a hilliness parameter is added to help smoothly transition between mountains and hills.
+When hilliness is 0, the standard absolute value is used.
+At hilliness of 1, the input value is squared instead to produce a parabolic shape.
+Hilliness values between 0 and 1 interpolate between these two shapes.
+
+At the low edge of Hill regions, a hilliness value of 1 is used along with low overall amplitude.
+As we transition into Mountain and Snowpeak regions, hilliness falls to 0 and amplitude increases.
