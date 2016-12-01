@@ -1,9 +1,7 @@
 
 \chapter{Related Works}
 
-\section{Publications}
-
-\subsection{Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids}
+\section{Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids}
 
 Geometry clipmaps is a good example of a highly scaleable system. The cost of doubling visible terrain area is low, making it trivial to expand the side of visible geometry beyond the practical limitations of floating point numbers. \cite{geometry_clipmaps}
 
@@ -12,7 +10,8 @@ The general approach is to center a regular grid of vertices around the viewpoin
 Each nested grid has double the resolution of the outer grid such that there is increased detail closer to the viewer.
 A torroidally updating texture heightmap is used at each level so that new data can be loaded incrementally.
 
-\subsection{Terrain Generation Using Procedural Models Based on Hydrology}
+
+\section{Terrain Generation Using Procedural Models Based on Hydrology}
 
 This is a terrain generation technique, though the authors also touch on their approach to rendering the terrain surface.
 One interesting aspect to note is their novel approach to storing the terrain which focuses on a hierarchy of features instead of only considering geometry.
@@ -21,7 +20,8 @@ I think this technique could prove a useful inspiration for designing other scal
 The main point of this paper is to generate terrain using a physically accurate hydrology model.
 The results speak for themselves - using their technique produces visually stunning images.
 
-\subsection{Terrain Synthesis from Digital Elevation Models}
+
+\section{Terrain Synthesis from Digital Elevation Models}
 
 This paper is mostly interesting because of the quality of the resulting terrains.
 Their technique involves sampling real terrain data using a user-controlled shape/template to generate a new terrain.
@@ -29,28 +29,25 @@ Their technique involves sampling real terrain data using a user-controlled shap
 For some games this process has tremendous potential for allowing some artist control of the surface while still importing tremendous detail that doesn't need to be artistically controlled.
 For my system, it may be worth exploring how the resulting terrain appears when the user-controlled texture is itself procedurally generated.
 
-\subsection{Socially competent AI characters}
 
-Some interesting work in the area of creating authentic characters with realistic motivations. \cite{socially_competent}
+\section{Effective Water Simulation from Physical Models}
 
-\section{Commercial Video Games}
 
-\subsection{Skyrim}
+\section{Interactive Landscape Visualization Using GPU Ray Casting}
 
-Skyrim has two artificial intelligence systems under the name ``Radiant'' which are of some interest. The first, Radiant AI, is a system for establishing character personalities by assigning them tasks to perform on a daily basis. Characters also maintain a relationship with the player which affects their reactions to player actions. For example, characters who are friendly to the
-player may invite the player to dinner if they barge into the character's house in the late evening, whereas characters which are not friendly may be upset by this occurrence.
 
-On the surface these systems seem promising but their implementations are heavily scripted and reliant on pre-existing planning and forethought. There are also a considerable number of character quirks which have given Skyrim a reputation for humorously dumb AI. \cite{skyrim_gamespy} \cite{skyrim_ign} \cite{gameinformer_skyrimtech} \cite{skyrim_nesmith_radiant} \cite{skyrim_whatsnew}
+\section{Real-time Realistic Rendering and Lighting of Forests}
 
-\subsection{Minecraft}
 
-At first glance, Minecraft appears to be an open world game because of the significant amount of freedom afforded to players both in game choices and even in style of gameplay.
+\section{Real-time Realistic Ocean Lighting using Seamless Transitions from Geometry to BRDF}
 
-Many players of Minecraft tout the impressive scale of the game because the worlds which are procedurally generated are theoretically quite expansive. However, deeper analysis shows that the scale of Minecraft is actually quite limited. While the world size in terms of raw horizontal distance is quite impressive, this massive size is only possible through a severely limited vertical scale in which the highest mountains rise only 60 meters above sea-level, and the deepest oceans are only another 60 meters below the surface.
 
-In general, the horizontal scale around the player is also quite limited. Without any sophisticated level-of-detail system, view distance is severely low
-and only allows players to see objects that are fairly nearby. Coupled with the previously discussed vertical limitations, the world (from a player's perspective) is actually quite small.
+\section{Precomputed Atmospheric Scattering}
 
-In terms of implementation, Minecraft simply ignores scale as defined in this paper's introduction. There is only a single level of abstraction employed by
-the simulation engine - events which are nearby occur, and anything which is beyond that ``nearby'' threshold is cached out and entirely static until it is
-revisited. This is entirely unsatisfactory from a world-simulation standpoint, and disqualifies Minecraft as an open-world game.
+
+\section{Real-time rendering and editing of vector-based terrains}
+
+
+\section{The Synthesis and Rendering of Eroded Fractal Terrains}
+
+
