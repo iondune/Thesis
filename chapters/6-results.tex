@@ -4,15 +4,54 @@
 
 \section{Voxels}
 
+The size of voxel chunks affects rendering performance and the cost of modification.
+Since modifying the terrain requires the entire chunk mesh to be reconstructed, it is ideal to have smaller chunks.
+However, larger chunk sizes reduce the number of draw calls.
+
+\editor{Graph of rendering performance for different chunk sizes}
+
+\editor{Graph of modification cost i.e. digging for different chunk sizes}
 
 \section{Clipmaps}
 
+One motivation for using geometry clipmaps is an even distribution of screen space to polygon.
+\editor{need figure of polygonal screen-space density compared to a simple grid}
+
+Another advantage of geometry clipmaps is the exponential relationship between layer count and view distance.
+\editor{Graph of performance and view distance over number of layers}
+
+Larger individual layer sizes increase view distance and reduce polygon screen-space at the cost of performance.f
+\editor{Graph of performance over size of layers}
+
+The addition of a geometry shader normal calculation simplifies the terrain generation process and improves visual quality, but incurs a small performance hit.
+\editor{Geometry shader normal calculation performance hit}
+
 
 \section{Vegetation}
+
+The far layers of the vegetation system are rough visual approximations of the closeup tree meshes, but are significantly less costly for rendering.
+\editor{Graph of performance meshes vs. impostors vs. batched simple geometry}
+
+Increasing the size of tree groups decreases CPU performance while improving rendering performance.
+\editor{Graph of chunk size performance}
 
 
 \section{Water}
 
 
 \section{Depth Buffer Precision}
+
+Our system supports very large view distances.
+Setting the far plane at sufficient distance for our scene significantly degrades the performance of the depth buffer, even with 32 bits of precision.
+
+The problem is that the depth buffer stores reciprocal depths, such that most of the depth buffer is alloted for nearby fragments.
+To improve depth buffer performance for far distances, we use the inverted depth buffer trick.
+By using a DirectX compatibility feature of OpenGL, we can use a depth buffer ranging from zero to one instead of negative one to one.
+Then, by storing depths reversed from the conventional direction, we can utilize the inherent distribution of floating point precision to even out the distribution of depth values in our scene.
+The conventional depth direction has near values at zero and far values at one.
+However, floating point precision is higher for values closer to zero.
+By storing near depths at one and far depths at zero, the additional floating point precision creates a pseudo-logarithmic distribution of depth values.
+
+This results in a significant reduction in depth fighting artifacts.
+See figure \editor{comparison of reverse depth turned off and on}.
 
