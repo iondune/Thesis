@@ -3,12 +3,13 @@
 
 \section{Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids}
 
-Geometry clipmaps is a good example of a highly scaleable system. The cost of doubling visible terrain area is low, making it trivial to expand the side of visible geometry beyond the practical limitations of floating point numbers. \cite{geometry_clipmaps}
+Geometry clipmaps is a good example of a highly scaleable system.
+The cost of doubling visible terrain area is low, making it possible to expand the side of visible geometry beyond the practical limitations of floating point numbers. \cite{geometry_clipmaps}
 
-This is a terrain rendering technique.
 The general approach is to center a regular grid of vertices around the viewpoint, then nest this grid in a larger grid of vertices, and so forth.
 Each nested grid has double the resolution of the outer grid such that there is increased detail closer to the viewer.
 A torroidally updating texture heightmap is used at each level so that new data can be loaded incrementally.
+\editor{Probably need a figure that explains what torroidal updating is}
 
 
 \section{Terrain Generation Using Procedural Models Based on Hydrology}
@@ -27,7 +28,6 @@ This paper is mostly interesting because of the quality of the resulting terrain
 Their technique involves sampling real terrain data using a user-controlled shape/template to generate a new terrain.
 
 For some games this process has tremendous potential for allowing some artist control of the surface while still importing tremendous detail that doesn't need to be artistically controlled.
-For my system, it may be worth exploring how the resulting terrain appears when the user-controlled texture is itself procedurally generated.
 
 
 \section{Effective Water Simulation from Physical Models}
