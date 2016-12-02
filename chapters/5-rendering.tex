@@ -1,7 +1,7 @@
 
 \chapter{Rendering}
 
-\section{Nearby Terrain}
+\section{Nearby Terrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nearby terrain is rendering using a pseudo-voxel representation designed to allow for sloped surfaces while maintaining intuitive live editing capabilities.
 A voxel algorithm that uses uniform voxel size is simple to implement and manage but is poorly suited to represent sloped surfaces.
@@ -49,22 +49,74 @@ This means that a ring of non-visible chunks must be loaded around all visible c
 Screen-space ambient occlusion is used to help visual understanding of the voxel terrain shape.
 
 
-\section{Far Terrain}
+\section{Far Terrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Far terrain is rendered using an implementation of geometry clipmaps with a few modifications.
+Far terrain is rendered using a flat-shaded implementation of geometry clipmaps with a few modifications.
 
-Geometry shader normal calculation.
+\subsection{Pre-calculated Index Buffer}
+
+The original geometry clipmaps implementation recalculates index buffers pre-frame so that each layer can grow and expand organically.
+This makes it possible to seamlessly transition to lower-resolution terrain when the viewpoint moves rapidly.
+
+However, our system locks the size of each layer so that the index buffers can be pre-calculated.
+This was found to significantly reduce CPU overhead
+
+\subsection{Normal Calculation}
+
+Since our terrain is flat-shaded for a polygonal effect, the per-quad normals provided by a normal map must be inaccurately applied to two triangles.
+We also found that normal calculation from our procedural generation system incurred significant CPU overhead.
+Accurate normal calculation in transition regions was also difficult.
+
+Our implementation uses a per-triangle normal calculation in a geometry shader so that accurate normals are always calculated for each triangle.
+This saves significant CPU time as normals don't need to be pre-calculated or sent to the GPU normal map.
+The addition of the geometry shader was found to not have a significant decrease in rendering performance.
 
 
-\section{Vegetation}
+\section{Vegetation} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Mesh instances.
+Our vegetation system currently supports rendering a large number of low-poly spruce trees, but could be expanded to support other types of vegetation.
+The system uses three levels of detail: mesh instances, impostors, and mesh facades.
 
-Impostors.
+Trees are rendered in groups similar to the chunk system used by nearby terrain.
+Mesh instances and impostors render many trees per group, whereas the mesh facade renders a single mesh to represent each group.
+
+\subsection{Mesh Instances}
+
+The mesh instances layer simply uses instance rendering to draw the tree model in several places.
+
+\subsection{Impostors}
+
+The impostors layer draws a billboard for each tree in the group.
+During initialization, the colors and normals of the tree model are rendered to textures for use in drawing each impostor.
+The impostors are locked in their X and Z axis rotation so that the base of the impostor always rests on the ground, and to reduce artifacts when the camera is high above or below the impostor.
+See Figure \editor{need comparison of a tree billboard rotating around all axis}.
+The rotation around the Y-axis is used to rotate the normals of the impostor so that lighting is accurate for impostors in all directions.
+
+\subsection{Mesh Facades}
+
+The final layer uses a simple mesh to represent a group of trees.
+The appearance of this mesh is quite simplistic but at large view distances it is sufficient to represent a group of trees.
+See Figure \editor{need close-up and distant view of a facade}.
+
+\section{Water} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Water}
+Our water system uses the geometry of our far terrain (geometry clipmaps) implementation for simplicity.
 
-Geometry clipmaps.
+Instead of offsetting each vertex by a heightmap value, however, we used summed Gerstner waves in the vertex shader.
+This provides both a vertical offset and a normal to use for rendering.
 
-Gerstner waves.
+The result is expensive, but simple and looks reasonable.
+
+
+\section{Environment} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The system renders a billboard to represent the sun and a sky sphere with vertex colors to represent the sky.
+
+Lighting for all other objects in the scene uses three directional lights: one for direct sunlight, one for scene reflection of sunlight, and one for sky light.
+The sunlight has high bright white color and points from the sun position towards the scene.
+The scene reflection light has dim white color and points in the opposite direction of the sunlight, with the Y component clamped to zero.
+The sky light points directly downward (negative Y) and has soft blue color.
+
+Our system also implements a simple atmospheric scattering simulation by applying fog to each rendered fragment based on scene depth.
+The fog color interpolates between dark blue for near fragments and the sky color for far fragments.
