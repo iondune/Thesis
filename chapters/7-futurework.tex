@@ -3,15 +3,46 @@
 
 \section{Terrain Lighting}
 
+\subsection{Shadows}
+
+Besides the HBAO+ post-processing pass applied to the whole scene, not shadows are currently calculated.
+The scene is inherently difficult to shadow due to the large view scales.
+A cascaded shadow map system with robust view frustum culling could be applied to the geometry clipmap layers but the performance hit on rendering may be significant.
+
+One option to improve rendering performance is horizon-based shadowing.
+Horizon-base shadowing pre-calculates horizon values for each pixel in a heightmap.
+These horizon values are then compared against sun elevation to determine whether a fragment is in shadow.
+
+While calculating horizon values for all clipmap layers may be expensive, it might be possible to calculate horizon values for e.g. every fourth layer and re-use the low resolution horizontal values in high resolution layers.
+
+\subsection{Accurate Scattering}
+
+Our current scattering system is a very rough approximation of real scattering.
+There are open source solutions with more accurate simulations of the Rayleigh and Mie scattering which could be used.
+
+It might also be better to use a non-photo-realistic color-ramp scattering simulation such as the one used by Firewatch.
+
+\subsection{Volumetric Lighting}
+
+Nvidia Gameworks, which our system uses for screen-space ambient occlusion, also has an implementation of volumetric lighting that could be used for more accurate sunset and sunrise effects.
+
 
 \section{Water}
 
+Our water system uses the shape of geometry clipmaps for simplicity but this causes a lot of water vertices to be rendered off-screen.
+Using a grid projected from screen-space is a common way to render water at different view scales.
 
 
 \section{Terrain Generation}
 
+Our system uses a standard grid to store the world map, but this brings some square artifacts into the large-scale terrain features.
+Other similar systems use a voronoi diagram to produce more varied large-scale structure.
 
 
 \section{Vegetation}
 
+While the mesh facade rendering system is cheap, it is a very rough visual approximation of distance forests.
+It is also not sufficiently cheap to render at significant scale.
+As such, the current system has a much shorter view distance for vegetation than it does for terrain.
 
+Using a GPU ray-cast simulation of forests would produce much larger view distances and improved visual approximation. \editor{cite the paper that did this}
