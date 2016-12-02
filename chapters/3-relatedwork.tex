@@ -3,20 +3,21 @@
 
 \section{Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids}
 
-Geometry clipmaps is a good example of a highly scaleable system.
+Geometry clipmaps is a good example of a highly scalable system.
 The cost of doubling visible terrain area is low, making it possible to expand the side of visible geometry beyond the practical limitations of floating point numbers. \cite{geometry_clipmaps}
 
 The general approach is to center a regular grid of vertices around the viewpoint, then nest this grid in a larger grid of vertices, and so forth.
 Each nested grid has double the resolution of the outer grid such that there is increased detail closer to the viewer.
-A torroidally updating texture heightmap is used at each level so that new data can be loaded incrementally.
-\editor{Probably need a figure that explains what torroidal updating is}
+A toroidally updating texture heightmap is used at each level so that new data can be loaded incrementally.
+\editor{Probably need a figure that explains what toroidal updating is}
 
+\editor{More in-depth explanation needed as this is the basis for a lot of the paper}
 
 \section{Terrain Generation Using Procedural Models Based on Hydrology}
 
 This is a terrain generation technique, though the authors also touch on their approach to rendering the terrain surface.
 One interesting aspect to note is their novel approach to storing the terrain which focuses on a hierarchy of features instead of only considering geometry.
-I think this technique could prove a useful inspiration for designing other scaleable systems besides terrain.
+I think this technique could prove a useful inspiration for designing other scalable systems besides terrain.
 
 The main point of this paper is to generate terrain using a physically accurate hydrology model.
 The results speak for themselves - using their technique produces visually stunning images.

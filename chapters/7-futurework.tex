@@ -5,7 +5,7 @@
 
 \subsection{Shadows}
 
-Besides the HBAO+ post-processing pass applied to the whole scene, not shadows are currently calculated.
+Besides the HBAO+ post-processing pass applied to the whole scene, no shadows are currently calculated.
 The scene is inherently difficult to shadow due to the large view scales.
 A cascaded shadow map system with robust view frustum culling could be applied to the geometry clipmap layers but the performance hit on rendering may be significant.
 
@@ -36,7 +36,7 @@ Using a grid projected from screen-space is a common way to render water at diff
 \section{Terrain Generation}
 
 Our system uses a standard grid to store the world map, but this brings some square artifacts into the large-scale terrain features.
-Other similar systems use a voronoi diagram to produce more varied large-scale structure.
+Other similar systems use a Voronoi diagram to produce more varied large-scale structure.
 
 
 \section{Vegetation}
