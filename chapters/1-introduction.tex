@@ -1,47 +1,27 @@
 
 \chapter{Introduction}
 
-\editor{Rewrite all of this chapter, most of this is not relevant.}
 
-Many of the top selling video games of all time are ``open-world'' or ``sandbox'' games. {\em Minecraft}, {\em Grand Theft Auto V}, and {\em The Elder Scrolls V: Skyrim} are all good examples. Many other popular or notable titles in the open-world genre include {\em Fallout 4}, {\em Dwarf Fortress}, and {\em The Witcher 3: Wild Hunt}.
+Many of the top selling video games of all time are ``open-world'' games.
+{\em Minecraft}, {\em Grand Theft Auto V}, and {\em The Elder Scrolls V: Skyrim} are all good examples.
+Those three titles alone have a combined total of over 190 million copies sold, and one of their defining characteristics is that they offer players an expansive world to play and explore in.
 
-\section{Project Definition}
+Creating such worlds is not a simple task, however.
+It is not straightforward to write a game engine that can render rolling hills, towering mountains, and dense forests.
+Nor is it simple to create these exterior environments, either through the careful work of artists or the expensive application of procedural generation.
 
-Developing an open-world game is difficult because it requires balancing large environments, player freedom, and nuanced simulations. If the world is of sufficient size then it is not be possible to store the entirety in memory. In order to allow player freedom, the engine must be robust enough to handle a variety of inputs and respond consistently.
 
-We propose a system that aims to solve many of the difficulties in creating an open-world game while allowing greater variety in player choice and increased authenticity of simulation, more so than previously seen in popular open-world titles.
+\section{A World Of Geometry}
 
-\subsection{Open-World}
+The primary source of difficulty in this field is the tremendous scale.
+Landscape scenes require incredible amounts of geometry to represent everything from the terrain itself to the trees and water.
+It is not be possible to store the entirety of the visible scene in a modern computer's memory.
 
-The two defining characteristics of an open-world game which will we focus on in this project are:
+Engines attempting to render an open world game must use techniques that not only load in different parts of the environment as they are needed, but also load those parts at differing detail levels.
 
-\begin{itemize}
-  \item Scale: The world itself is large, allowing player exploration and creating an aspect of wonderment.
-  \item Choice: The player has freedom both to decide what to do and how to do it.
-\end{itemize}
 
-Either of these characteristics adds great difficulty to the game design process. Addressing {\em scale} requires level-of-detail techniques and some approach for keeping parts of the world out-of-core. Supporting player {\em choice} requires sophisticated AI, physics, and gameplay systems which can not only handle many possible scenarios, but must also handle those scenarios in a way which is alignment with player expectations (or at least, which appears consistent to the player).
+\section{Our System}
 
-These are difficult goals, and while many open-world games are successful there are often inconsistencies or other issues in these games.
-
-\section{Common Problems}
-
-We believe that the most noticeable flaws in open-world games are flaws of inconsistency - when the expectations of the player based on logic and common sense do not align with the results of the game simulation.
-
-In the worst case, these inconsistencies reveal the simplicity or flaws of the underlying algorithms in ways that the player can exploit. Exploitations of the game engine are bad not because they might invalidate intended game progress, but because they break the immersion of the player.
-
-Consider the following issues:
-
-\subsection{Uncanny Knowledge}
-
-AI characters can sometimes behave in ways that indicate they know things which we would not expect them to know. We call such behaviour the result of ``uncanny knowledge", or knowledge which reveals an inconsistency in the information model of the simulation. Some common manifestations of uncanny knowledge include psychic guards and irregular pathfinding.
-
-\subsubsection{Psychic Guards}
-
-Perhaps the most notable and plain example of that attempts to address this problem this issue is from \textit{The Elder Scrolls IV: Oblivion}, a 2007 open-world sandbox RPG set in a medieval/fantasy world. Players noticed that even when they committed a crime in some secluded and quiet area away from the prying eyes of the law, guards would swoop down to arrest them out of now. There is a mod with over 40,000 downloads that attempts to address this problem.\cite{psychic_guards}
-
-In this case there is an inconsistency between the expected knowledge of the guards and the knowledge they appear to be acting on.
-
-\subsubsection{Path finding}
-
-A more commonplace and ubiquitous example of this issue comes in the form of standard path-finding algorithms. Games with good path-finding are touted for the ability of characters to navigate from point A to point B successfully and without getting stuck or otherwise halted. The problem exhibited here is that characters somehow have omniscient knowledge of the environment. The same algorithms that let a character walk through the streets of a well-known town will lead that same character out of an unknown labyrinth as though they had built it themselves.
+This paper describes a game engine designed to render large exterior environments.
+We discuss related work from a variety of topics, and present a system which incorporates many of these ideas.
+Our system procedurally generates and renders terrain, vegetation, water, and the sky.
