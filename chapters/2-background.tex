@@ -10,13 +10,13 @@
 
 \section{The Many Els}
 
-Many computer graphics techniques involve breaking down complex objects into many individual elements.
+Many computer graphics techniques involve breaking down complex objects into a large number of individual elements.
 As such, we need terminology to refer to these different types of elements.
 
 Perhaps the most commonly known individual element is a pixel.
-The term pixel refers to a ``\textbf{Pi}cture \textbf{El}ement''
-In this case, a picture has been broken down into individual elements.
-In this paper, we will discuss pixels and other such broken down elements including:
+The term pixel refers to a ``\textbf{Pi}cture \textbf{El}ement''.
+In this case, a picture has been broken down into its individual elements, pixels.
+In this paper, we will discuss pixels and other such elements including:
 
 \begin{itemize}
 	\item Texels ``\textbf{Tex}ture \textbf{El}ements''
@@ -39,7 +39,7 @@ Consider, for example, a tree.
 \editor{Figure of different tree representations here}
 A high-detail representation of a tree would consist of geometry to represent branches, individual leaves, and the shape of the trunk.
 A low-detail representation of a tree might simply consist of a trunk-colored box and a leaf-colored cone.
-Smaller details like branches and individual leaves are no longer visible in the low-detail representation, but are represented more abstractly.
+Smaller details like branches and individual leaves are no longer visible in the low-detail representation, but are represented more abstractly by the box and cone shapes.
 The advantage of the low-detail representation is that it requires fewer resources to draw.
 
 In addition, it is also a bad idea to render distant scene elements at full-detail even if resources are available.
@@ -51,7 +51,7 @@ Level-of-detail is commonly abbreviated LOD.
 A rendering system that is capable of representing scene elements in both high-detail and low-detail formats is referred to as a LOD rendering system.
 A LOD system must switch freely between these representations as the viewpoint changes to reduce the amount of geometry and draw calls required to render a large scene, while still representing nearby objects at full detail.
 
-One common LOD system is texture mipmapping. \cite{opengl_mipmaps}
+One common LOD system that is implemented in most graphics hardware is texture mipmapping. \cite{opengl_mipmaps}
 
 
 \section{Terrain Rendering}
