@@ -3,13 +3,33 @@
 
 \editor{Need references and citations in this chapter}
 
-\section{Computer Graphics}
-
-Computer Graphics is the process of using computers to produces images.
-In real-time applications, this involves using a GPU to rasterize triangles and other primitives.
-This process involves producing the geometry to be rendered and then performing a lighting calculation that determines the color of each pixel in the resulting image.
+\editor{Needs introduction paragraph here.}
 
 \section{Level of Detail}
+
+There are several limitations when it comes to rendering large scenes.
+In general, the large amount of geometry required to represent these scenes is at odds with the limited resources of the computer.
+The GPU is only able to render and shade a certain amount of geometry due to processor speed and number of available processors.
+Scene geometry must be loaded into main memory, then transferred to graphics memory, both of which have throughput maximums and storage maximums.
+The hardware interface also has some CPU overhead with regard to submitting draw commands, so we are limited in the number of draw calls we can make.
+
+As such, in order to render large scenes with a large number of scene elements, we need to account of level of detail.
+`Detail' in this context refers generally to the amount of geometry used to represent a scene element.
+Consider, for example, a tree.
+A high-detail representation of a tree would consist of geometry to represent branches, individual leaves, and the shape of the trunk.
+A low-detail representation of a tree might simply consist of a trunk-colored box and a leaf-colored cone.
+Smaller details like branches and individual leaves are no longer visible in the low-detail representation, but are represented more abstractly.
+The advantage of the low-detail representation is that it requires fewer resources to draw.
+
+In addition, it is also a bad idea to render distant scene elements at full-detail even if resources are available.
+The farther away a scene element is from the viewpoint, the smaller it is in terms of screen-space.
+Drawing primitives that are smaller in terms of screen-space can cause aliasing, a visual artifact.
+As such, low-detail representations can sometimes appear better than their high-detail counterparts at large view distances.
+
+Level-of-detail is commonly abbreviated LOD.
+A rendering system that is capable of representing scene elements in both high-detail and low-detail formats is referred to as a LOD rendering system.
+A LOD system must switch freely between these representations as the viewpoint changes to reduce the amount of geometry and draw calls required to render a large scene., while still representing nearby objects at full detail.
+
 
 \section{Terrain Rendering}
 
