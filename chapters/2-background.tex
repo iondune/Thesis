@@ -1,4 +1,6 @@
 
+\iffalse \bibliography{../bibliography.bib} \fi
+
 \chapter{Background}
 
 \editor{Need references and citations in this chapter}
@@ -31,14 +33,41 @@ Level-of-detail is commonly abbreviated LOD.
 A rendering system that is capable of representing scene elements in both high-detail and low-detail formats is referred to as a LOD rendering system.
 A LOD system must switch freely between these representations as the viewpoint changes to reduce the amount of geometry and draw calls required to render a large scene, while still representing nearby objects at full detail.
 
+One common LOD system is texture mipmapping. \cite{opengl_mipmaps}
+
 
 \section{Terrain Rendering}
 
-Terrain rendering is a particular subset of computer graphics that is concerned with producing images of terrain.
-Terrain is important because it plays a large role in the appearance of outdoor scenes, but it is difficult to render because it requires a tremendous amount of geometry.
-Terrain rendering methods usually focus on employing level-of-detail algorithms that make it possible to render close-up terrain in high detail and far-away terrain in low detail.
-\editor{Need to define `detail' and reference an image}
-Some of the main challenges these techniques aim to solve are creating the visual transitions between two areas that are rendered at different detail levels, and implementing a scheme to load in new data smoothly when the viewpoint changes.
+Terrain rendering is a prime candidate for using a level-of-detail algorithm because terrain consists of a large amount of geometry and is visible both up close and at large view distances.
+Over the years there have been many published techniques for terrain rendering.
+\cite{p-bdam}
+\cite{hardware_lod}
+\cite{diamondterrain}
+\cite{roambetter}
+\cite{clod}
+\cite{roam}
+\cite{righttri}
+However, we will focus on some more modern techniques that serve as the basis for the terrain system presented in this paper.
+
+
+\subsection{Heightmaps}
+
+A common technique for simplifying terrain representation is the use of a heightmap.
+A heightmap is based on the assumption that terrain elevation is uniformly sampled, i.e. we know the height of the terrain at evenly spaced intervals.
+Instead of storing a set of 3D points to represent the terrain surface, we can instead create a generic 2D regular grid and store the height separately.
+This separate array of height values is referred to as a heightmap.
+
+
+\subsection{Geometry Clipmaps}
+
+Geometry clipmaps is a terrain rendering technique from 2004 that uses a series of nested regular grids to represent each detail level of the terrain. \cite{geometry_clipmaps}
+A regular grid of terrain at maximum detail is centered around the viewpoint.
+Another regular grid of terrain at twice the scale (and thus half resolution) is centered around that inner grid, but with a hole cut out where the inner grid is located.
+Thus the second grid is clipped by the first grid (i.e. a clipmap).
+Each of these grids is referred to as a layer.
+The geometry clipmaps approach also includes a system for blending the low and high detail representations at layer boundaries, and for updating the heightmaps used by each layer.
+Heightmaps are updated toroidally so that small incremental updates are possible as the viewpoint moves.
+\editor{Toroidal update figure}
 
 \section{Terrain Generation}
 

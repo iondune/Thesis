@@ -1,14 +1,6 @@
 
-\chapter{Related Works}
+\chapter{Related Works} \label{rworks}
 
-\section{Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids}
-
-Geometry clipmaps is a good example of a highly scalable system.
-The cost of doubling visible terrain area is low, making it possible to expand the side of visible geometry beyond the practical limitations of floating point numbers. \cite{geometry_clipmaps}
-
-The general approach is to center a regular grid of vertices around the viewpoint, then nest this grid in a larger grid of vertices, and so forth.
-Each nested grid has double the resolution of the outer grid such that there is increased detail closer to the viewer.
-A toroidally updating texture heightmap is used at each level so that new data can be loaded incrementally.
 \editor{Probably need a figure that explains what toroidal updating is}
 
 \editor{More in-depth explanation needed as this is the basis for a lot of the paper}
