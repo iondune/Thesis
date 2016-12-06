@@ -69,7 +69,11 @@ The geometry clipmaps approach also includes a system for blending the low and h
 Heightmaps are updated toroidally so that small incremental updates are possible as the viewpoint moves.
 \editor{Toroidal update figure}
 
+More recently, work has been done on improving the geometry clipmaps technique for use with modern rendering hardware, but the principles remain the same. \cite{gems_clipmaps}
+
 \section{Terrain Generation}
+
+However, before addressing the problem of how to render terrain we must first decide where our terrain data will come from.
 
 There are many possible sources of terrain data.
 Acquired data from the real world is often available.
@@ -92,10 +96,15 @@ Procedural terrain generation methodologies usually employ one or more of the fo
 Real terrain is shaped by erosion, the gradual shaping of landscape caused by water, wind, and other forces.
 Some terrain generation techniques simulate these physical processes on a starter dataset to create realistic surfaces. \cite{hydrology}
 
+However, the nature of the physical simulation usually requires the entire world (or at least individual continents) to be generated at once.
+In other words, the generation process itself cannot easily support level-of-detail.
+
+
 \subsection{Fractal processes}
 
 Another technique for generating terrain is a fractal process, some algorithm that operates on geometry to add detail and which can be re-applied at smaller and smaller scale until a highly detailed surface results.
 The most common form of fractal process is the Diamond-square Algorithm which sequentially subdivides and modulates a regular grid.
+
 
 \subsection{Noise Algorithms}
 
@@ -105,6 +114,7 @@ Noise is generally a signal that varies randomly.
 Coherent noise is a special brand of noise that is more useful for generation purposes.
 As a random signal, it is reasonable to expect that a large change in domain results in a random change in output for a given noise function.
 Coherent noise has the property that for small changes in domain, only a small change in output will result.
+
 
 \subsubsection{Coherent Noise}
 
