@@ -7,6 +7,7 @@
 
 \editor{Needs introduction paragraph here.}
 
+
 \section{Level of Detail}
 
 There are several limitations when it comes to rendering large scenes.
@@ -163,6 +164,16 @@ This technique helps break up the homogeneous appearance of generated terrain by
 
 
 \section{Voxels}
+
+A voxel is a three-dimensional analogue to a pixel.
+While an image can be represented by a 2D array of pixels, a volume can be represented by a 3D array of voxels.
+\editor{Figure showing voxels}
+
+Voxels are sometimes used to represent and render 3D terrain.
+{\em Minecraft} is perhaps the most popular example of this technique, where the terrain and other objects are represented as voxels.
+
+Voxels can be either converted to a polygon mesh for rendering (this is the technique used by {\em Minecraft}, or rendered more directly using ray-casting or other similar approaches.
+In Section \ref{voxterrain} we discuss our approach to using voxels to represent and render terrain.
 
 
 \section{Screen-space Ambient Occlusion}
