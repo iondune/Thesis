@@ -8,6 +8,23 @@
 \editor{Needs introduction paragraph here.}
 
 
+\section{The Many Els}
+
+Many computer graphics techniques involve breaking down complex objects into many individual elements.
+As such, we need terminology to refer to these different types of elements.
+
+Perhaps the most commonly known individual element is a pixel.
+The term pixel refers to a ``\textbf{Pi}cture \textbf{El}ement''
+In this case, a picture has been broken down into individual elements.
+In this paper, we will discuss pixels and other such broken down elements including:
+
+\begin{itemize}
+	\item Texels ``\textbf{Tex}ture \textbf{El}ements''
+	\item Surfels ``\textbf{Surf}ace \textbf{El}ements''
+	\item Voxels ``\textbf{Vo}lume \textbf{El}ements''
+\end{itemize}
+
+
 \section{Level of Detail}
 
 There are several limitations when it comes to rendering large scenes.
@@ -178,9 +195,28 @@ In Section \ref{voxterrain} we discuss our approach to using voxels to represent
 
 \section{Screen-space Ambient Occlusion}
 
+Without shadows, it is sometimes difficult to understand the shape of rendered objects.
+One way to add simple shadows to a scene is by accounting for the occlusion of ambient light caused by nearby objects.
+
+
 \subsection{Ambient Occlusion}
 
-\subsection{Screen-space}
+In rendering, ambient light is used to represent the indirect lighting of a scene caused by the natural reflection of light off of all objects.
+While direct light travels directly from the light to the object being shaded, ambient light comes from all directions.
+Ambient Occlusion is a technique for simulating this global illumination phenomenon by darkening surfaces whenever they are surrounded by many other nearby surfaces.
+In more technical terms, if a hemisphere aligned along the normal of a surfel contains many other surfel, that surfel is shaded darker than a surfel which is not surrounded.
+
+\subsection{Screen-space Ambient Occlusion}
+
+One simple and efficient way to approximate ambient occlusion in real time computer graphics is to use a technique called ``Screen-space Ambient Occlusion''.
+SSAO is a post-processing pass that operates on fragments, or pixels that have depth values associated with them.
+Instead of searching a hemisphere around each surfel in the scene, we instead search a hemisphere around each fragment looking for other fragments.
+
+While this approach does not accurately account for any non-visible surface (including any object that is either occluded or off-screen), it is fast and straightforward to add to an existing rendering engine.
+
 
 \subsection{HBAO+}
 
+Horizon-based ambient occlusion (plus) is an improved and modern version of SSAO developed by Nvidia.
+Nvidia provides HBAO+ as free software to game engine developers.
+As such, we choose to use HBAO+ in our engine instead of writing our own implementation of SSAO.
