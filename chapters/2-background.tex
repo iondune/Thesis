@@ -74,6 +74,7 @@ A common technique for simplifying terrain representation is the use of a height
 A heightmap is based on the assumption that terrain elevation is uniformly sampled, i.e. we know the height of the terrain at evenly spaced intervals.
 Instead of storing a set of 3D points to represent the terrain surface, we can instead create a generic 2D regular grid and store the height separately.
 This separate array of height values is referred to as a heightmap.
+\editor{Figure here for what a heightmap looks like}
 
 
 \subsection{Geometry Clipmaps}
@@ -82,6 +83,7 @@ Geometry clipmaps is a terrain rendering technique from 2004 that uses a series 
 A regular grid of terrain at maximum detail is centered around the viewpoint.
 Another regular grid of terrain at twice the scale (and thus half resolution) is centered around that inner grid, but with a hole cut out where the inner grid is located.
 Thus the second grid is clipped by the first grid (i.e. a clipmap).
+Consecutive grids are added in the same manner, each twice the scale and half the resolution of the previous.
 Each of these grids is referred to as a layer.
 The geometry clipmaps approach also includes a system for blending the low and high detail representations at layer boundaries, and for updating the heightmaps used by each layer.
 Heightmaps are updated toroidally so that small incremental updates are possible as the viewpoint moves.
@@ -89,17 +91,19 @@ Heightmaps are updated toroidally so that small incremental updates are possible
 
 More recently, work has been done on improving the geometry clipmaps technique for use with modern rendering hardware, but the principles remain the same. \cite{gems_clipmaps}
 
+The system in this paper uses a modified version of geometry clipmaps, which is discussed in Section \ref{clipterrain}
+
 \section{Terrain Generation}
 
-However, before addressing the problem of how to render terrain we must first decide where our terrain data will come from.
+Before addressing the problem of how to render terrain we must first decide where our terrain data will come from.
 
 There are many possible sources of terrain data.
 Acquired data from the real world is often available.
 The USGS provides satellite data for much of the world's surface.
 Some game engines also use terrain editing tools that allow artists to sculpt terrain manually.
 
-However, it is also possible to implement algorithms that procedurally construct terrain.
-The advantage of using procedurally generated terrain is that it requires less time/effort intensive than artistically creating a terrain, and it does not require much or any disk space (as opposed to using acquired data which can be very large).
+It is also possible to implement algorithms that procedurally construct terrain.
+The advantage of using procedurally generated terrain is that it requires less time and effort  than artistically creating a terrain, and it does not require much or any disk space (as opposed to using acquired data which can be very large).
 
 Procedural terrain generation methodologies usually employ one or more of the follow techniques.
 
@@ -115,23 +119,29 @@ Real terrain is shaped by erosion, the gradual shaping of landscape caused by wa
 Some terrain generation techniques simulate these physical processes on a starter dataset to create realistic surfaces. \cite{hydrology}
 
 However, the nature of the physical simulation usually requires the entire world (or at least individual continents) to be generated at once.
-In other words, the generation process itself cannot easily support level-of-detail.
+This means that the generation of very large worlds can be very expensive in terms of both processing time and memory requirements.
+
+Physical process simulations are often used in fields where time and memory requirements are not as stringent, e.g. offline rendering for movies.
 
 
 \subsection{Fractal processes}
 
 Another technique for generating terrain is a fractal process, some algorithm that operates on geometry to add detail and which can be re-applied at smaller and smaller scale until a highly detailed surface results.
-The most common form of fractal process is the Diamond-square Algorithm which sequentially subdivides and modulates a regular grid.
+One common form of fractal process is the Diamond-square Algorithm which sequentially subdivides and modulates a regular grid.
 
 
 \subsection{Noise Algorithms}
 
 Noise algorithms are similar to fractal processes but more heavily based in mathematics.
 The most typical way that noise algorithms are used is by generating a patch or formula for noise (typically in 2 dimensions, though sometimes more) and employing a technique called fractional Brownian motion to create a heightmap.
+The primary advantage of noise terrain generation over the previous two methods is that the generation of an individual elevation value is entirely independent of neighboring values.
+This means that a noise algorithm can be more easily parallelized, and applied more effectively for use with a LOD terrain rendering system.
+
 Noise is generally a signal that varies randomly.
 Coherent noise is a special brand of noise that is more useful for generation purposes.
 As a random signal, it is reasonable to expect that a large change in domain results in a random change in output for a given noise function.
 Coherent noise has the property that for small changes in domain, only a small change in output will result.
+
 
 
 \subsubsection{Coherent Noise}
