@@ -1,42 +1,33 @@
 
+\iffalse \bibliography{../bibliography.bib} \fi
+
 \chapter{Related Works} \label{rworks}
 
-\section{Terrain Generation Using Procedural Models Based on Hydrology}
+\section{Terrain Generation}
 
-This is a terrain generation technique, though the authors also touch on their approach to rendering the terrain surface.
-One interesting aspect to note is their novel approach to storing the terrain which focuses on a hierarchy of features instead of only considering geometry.
-I think this technique could prove a useful inspiration for designing other scalable systems besides terrain.
+Some recent publications in the field of terrain generation have produced impressive landscapes.
+G{\'e}nevaux et al. used a vector-based hydrology simulation with user-controllable parameters. \cite{hydrology}
+One interesting aspect to note is their novel approach to storing the terrain which focuses on a hierarchy of features, similar to constructive solid geometry.
+Zhou et al. implemented a system to stitch together samples from real-world DEM data, also with user-controllable parameters. \cite{DEMsynthesis}
 
-The main point of this paper is to generate terrain using a physically accurate hydrology model.
-The results speak for themselves - using their technique produces visually stunning images.
+\section{Tree Rendering}
 
+Many published techniques for rendering forests involve ray casting or ray marching.
+Mantler et al. add tree rendering to a terrain renderer by ray marching on an appended tree heightmap. \cite{terraintreecast}
+Bruenton \& Neyret use pre-rendered depth maps of tree models from many possible angles in addition to an algorithm for distant forest shading. \cite{bruneton_trees}
 
-\section{Terrain Synthesis from Digital Elevation Models}
-
-This paper is mostly interesting because of the quality of the resulting terrains.
-Their technique involves sampling real terrain data using a user-controlled shape/template to generate a new terrain.
-
-For some games this process has tremendous potential for allowing some artist control of the surface while still importing tremendous detail that doesn't need to be artistically controlled.
+% \section{Minecraft}
 
 
-\section{Effective Water Simulation from Physical Models}
 
 
-\section{Interactive Landscape Visualization Using GPU Ray Casting}
+
+% Effective Water Simulation from Physical Models
+% Real-time Realistic Ocean Lighting using Seamless Transitions from Geometry to BRDF
+% Precomputed Atmospheric Scattering
 
 
-\section{Real-time Realistic Rendering and Lighting of Forests}
+% The Synthesis and Rendering of Eroded Fractal Terrains
 
-
-\section{Real-time Realistic Ocean Lighting using Seamless Transitions from Geometry to BRDF}
-
-
-\section{Precomputed Atmospheric Scattering}
-
-
-\section{Real-time rendering and editing of vector-based terrains}
-
-
-\section{The Synthesis and Rendering of Eroded Fractal Terrains}
 
 
