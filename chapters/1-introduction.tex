@@ -28,3 +28,20 @@ Game developers attempting to render an open world game must use techniques that
 This paper describes a game engine designed to render large exterior environments.
 We discuss related work from a variety of topics, and present a system which incorporates many of these ideas.
 Our system procedurally generates and renders terrain, vegetation, water, and atmospheric effects.
+
+For terrain generation, we implement a system for picking between a variety of landscape generators using noise algorithms.
+This system determines not only the elevation and color of the terrain, but also parameters such as forestation and material properties.
+
+The generated terrain is rendered using a novel voxel implementation for nearby terrain and a heightmap-based implementation for distant terrain.
+The distant terrain system supports a view distance of 25 miles in all directions.
+
+Forests are rendered by the system using a combination of three different rendering approaches.
+Terrain, forests, and other scene elements including the sky and water render at 170 frames per second with a 2560x1440 resolution.
+See Figure~\ref{fig:system1} for an overview of the system.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=1.0\textwidth]{figures/SystemOverview.png}
+  \caption{Overview of the presented system}
+  \label{fig:system1}
+\end{figure}
