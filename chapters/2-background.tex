@@ -41,10 +41,20 @@ The hardware interface also has some CPU overhead with regard to submitting draw
 
 As such, in order to render large scenes with a large number of scene elements, we need to account of level of detail.
 `Detail' in this context refers generally to the amount of geometry used to represent a scene element.
-Consider, for example, a tree.
-\editor{Figure of different tree representations here}
+Consider, for example, a tree.{}
 A high-detail representation of a tree would consist of geometry to represent branches, individual leaves, and the shape of the trunk.
 A low-detail representation of a tree might simply consist of a trunk-colored box and a leaf-colored cone.
+See Figure~\ref{fig:trees} for an example of these representations.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/TreeComparison.png}
+	\caption{On the left is an example of a high-detail tree, on the right is a low-detail tree.
+	While the low detail approximation may appear very crude, it is a reasonable substitution when the tree is so distant that it takes up only a few pixels of screenspace.}
+	\label{fig:trees}
+\end{figure}
+
+
 Smaller details like branches and individual leaves are no longer visible in the low-detail representation, but are represented more abstractly by the box and cone shapes.
 The advantage of the low-detail representation is that it requires fewer resources to draw.
 
@@ -81,8 +91,15 @@ A common technique for simplifying terrain representation is the use of a height
 A heightmap is based on the assumption that terrain elevation is uniformly sampled, i.e. we know the height of the terrain at evenly spaced intervals.
 Instead of storing a set of 3D points to represent the terrain surface, we can instead create a generic 2D regular grid and store the height separately.
 This separate array of height values is referred to as a heightmap.
-\editor{Figure here for what a heightmap looks like}
+See Figure~\ref{fig:hm} for an example of a heightmap.
 
+\begin{figure}
+	\centering
+		\includegraphics[width=0.6\textwidth]{figures/hm1.png}
+	\caption{An example of a heightmap (below) and its respective terrain (above).}
+	\label{fig:hm}
+	% https://www.ssucet.org/~jhudson/15/2802/heightmap/hm1.png
+\end{figure}
 
 \subsection{Geometry Clipmaps}
 
@@ -94,7 +111,29 @@ Consecutive grids are added in the same manner, each twice the scale and half th
 Each of these grids is referred to as a layer.
 The geometry clipmaps approach also includes a system for blending the low and high detail representations at layer boundaries, and for updating the heightmaps used by each layer.
 Heightmaps are updated toroidally so that small incremental updates are possible as the viewpoint moves.
-\editor{Toroidal update figure}
+See Figures \ref{fig:toroid} and \ref{fig:clipmaps_update}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.5\textwidth]{figures/toroid.png}
+	\caption{
+		An interesting property of a toroid is that moving along either direction of gridlines will eventually lead you back to your starting point.
+		This concept is used to perform incremental updates to the heightmaps in geometry clipmaps.
+	}
+	\label{fig:toroid}
+	% https://qph.ec.quoracdn.net/main-qimg-29e8370d1edfe01c997d43ae6930dd6a?convert_to_webp=true
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/clipmaps_update.jpg}
+	\caption{
+		An example of a toroidal update for a geometry clipmaps heightmap.
+		Image (b) shows how the movement of the viewpoint causes the red region to be updated.
+	}
+	\label{fig:clipmaps_update}
+	% http://http.developer.nvidia.com/GPUGems2/elementLinks/02_geoclipmaps_08part1.jpg
+\end{figure}
 
 More recently, work has been done on improving the geometry clipmaps technique for use with modern rendering hardware, but the principles remain the same. \cite{gems_clipmaps}
 
@@ -200,8 +239,15 @@ This technique helps break up the homogeneous appearance of generated terrain by
 \section{Voxels} \label{voxels}
 
 A voxel is a three-dimensional analogue to a pixel.
-While an image can be represented by a 2D array of pixels, a volume can be represented by a 3D array of voxels.
-\editor{Figure showing voxels}
+While an image can be represented by a 2D array of pixels, a volume can be represented by a 3D array of voxels - see Figure \ref{fig:voxels}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.3\textwidth]{figures/voxels}
+	\caption{Voxels}
+	\label{fig:voxels}
+	% https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Voxels.svg/220px-Voxels.svg.png
+\end{figure}
 
 Voxels are sometimes used to represent and render 3D terrain.
 {\em Minecraft} is perhaps the most popular example of this technique, where the terrain and other objects are represented as voxels.
