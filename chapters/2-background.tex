@@ -3,14 +3,18 @@
 
 \chapter{Background}
 
-\editor{Need references and citations in this chapter}
+\editor{Need more references in this chapter}
 
-\editor{Needs introduction paragraph here.}
+Our system builds on a lot of existing technology.
+To lay the foundation of the paper we first discuss some computer graphics fundamentals (Section \ref{els}).
+We then describe level-of-detail algorithms, a fundamental basis for most of the work in this paper (Section \ref{lod}).
+Next, we discuss some methods for generating and rendering terrain (Sections \ref{terrain_gen} and \ref{terrain_render} respectively), including a look at voxel terrain in particular (Section \ref{voxels}).
+Finally, we give an overview of a rendering effect used to improve the appearance of our renders (Section \ref{ssao}).
 
 \editor{Maybe need a section on ray casting, ray marching, and rasterization?}
 
 
-\section{The Many Els}
+\section{The Many Els} \label{els}
 
 Many computer graphics techniques involve breaking down complex objects into a large number of individual elements.
 As such, we need terminology to refer to these different types of elements.
@@ -27,7 +31,7 @@ In this paper, we will discuss pixels and other such elements including:
 \end{itemize}
 
 
-\section{Level of Detail}
+\section{Level of Detail} \label{lod}
 
 There are several limitations when it comes to rendering large scenes.
 In general, the large amount of geometry required to represent these scenes is at odds with the limited resources of the computer.
@@ -56,7 +60,7 @@ A LOD system must switch freely between these representations as the viewpoint c
 One common LOD system that is implemented in most graphics hardware is texture mipmapping. \cite{opengl_mipmaps}
 
 
-\section{Terrain Rendering}
+\section{Terrain Rendering} \label{terrain_render}
 
 Terrain rendering is a prime candidate for using a level-of-detail algorithm because terrain consists of a large amount of geometry and is visible both up close and at large view distances.
 Over the years there have been many published techniques for terrain rendering.
@@ -96,7 +100,7 @@ More recently, work has been done on improving the geometry clipmaps technique f
 
 The system in this paper uses a modified version of geometry clipmaps, which is discussed in Section \ref{clipterrain}
 
-\section{Terrain Generation}
+\section{Terrain Generation} \label{terrain_gen}
 
 Before addressing the problem of how to render terrain we must first decide where our terrain data will come from.
 
@@ -193,7 +197,7 @@ Using two additional FBM generators, an offset vector can be produced for each s
 This technique helps break up the homogeneous appearance of generated terrain by shrinking and expanding different areas.
 
 
-\section{Voxels}
+\section{Voxels} \label{voxels}
 
 A voxel is a three-dimensional analogue to a pixel.
 While an image can be represented by a 2D array of pixels, a volume can be represented by a 3D array of voxels.
@@ -206,7 +210,7 @@ Voxels can be either converted to a polygon mesh for rendering (this is the tech
 In Section \ref{voxterrain} we discuss our approach to using voxels to represent and render terrain.
 
 
-\section{Screen-space Ambient Occlusion}
+\section{Screen-space Ambient Occlusion} \label{ssao}
 
 Without shadows, it is sometimes difficult to understand the shape of rendered objects.
 One way to add simple shadows to a scene is by accounting for the occlusion of ambient light caused by nearby objects.
