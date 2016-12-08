@@ -1,19 +1,22 @@
 
 \chapter{Generation}
 
-\editor{Need introductory paragraph}
-\editor{include a system diagram showing the major processes}
-\editor{Add goals of what the system will support earlier (i.e. oceans, beachetc, etv.)}
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{figures/GeneratorSystem}
+  \caption{Terrain generation system overview}
+  \label{fig:gen_overview}
+\end{figure}
 
 Our terrain generation algorithm creates a world with large continents that contain beaches, forests, hills, and mountains.
 The algorithm uses a coursely sampled world map to determine continent outlines and region boundaries.
 For finely sampled terrain values, the values of the world map are used to select and influence custom generators for each region type.
-See Figure \ref{fig:worldmap}.
+See Figures \ref{fig:gen_overview} and \ref{fig:worldmap}.
 The world map is discussed in Section \ref{sec:worldmap} and the different region generators are discussed in \ref{sec:region}
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.8\textwidth]{figures/worldmap.png}
+		\includegraphics[width=1.0\textwidth]{figures/worldmap.png}
 	\caption{Example world map section and generator selection.}
 	\label{fig:worldmap}
 \end{figure}
@@ -67,8 +70,8 @@ The exact size, shape, and shoreline distance of the cliffs are influenced by ad
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.5\textwidth]{figures/beach_cliffs}
-  \caption{Beach cliff generation \editor{Temporarily hand-drawn}}
+    \includegraphics[width=0.4\textwidth]{figures/beachcliffs}
+  \caption{Beach cliff generation}
   \label{fig:beach_cliffs}
 \end{figure}
 
