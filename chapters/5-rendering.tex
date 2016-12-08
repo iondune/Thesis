@@ -8,9 +8,18 @@
   \label{fig:renderoverview}
 \end{figure}
 
-\editor{needs an into paragraph - what kind of rendering do you aim to support - what are the challenges given the setting - what are the basic technologies used to solve these problems (system diagram or bullet list).}
 
-\section{Nearby Terrain} \label {voxterrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Our landscape rendering system consists of three primary components - a nearby terrain renderer, a distant terrain renderer, and a forest renderer.
+The nearby terrain renderer uses a meshing algorithm influenced by voxel terrain systems (Section \ref{voxterrain}).
+This mesh generation is expensive but is necessary for meaningful player interaction and is limited to a very narrow region around the viewpoint.
+Far terrain is rendered using a modified implementation of geometry clipmaps (Section \ref{clipterrain}).
+The nature of the clipmaps algorithm makes it possible to extend the terrain view distance substantially with minimal overhead.
+Our forest system uses mesh instances, impostors, and a similar representation called facades to render vast forests (Section \ref{forests}).
+The system is designed to render a large number of individual trees with the highest performance possible.
+In addition to these three primary components, our system also renders water and other additional environment aspects, discussed in Sections \ref{sec:water} and \ref{sec:env}.
+See Figure \ref{fig:renderoverview} for an overview of the system.
+
+\section{Nearby Terrain} \label{voxterrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nearby terrain is rendering using a pseudo-voxel representation designed to allow for sloped surfaces while maintaining intuitive live editing capabilities.
 A voxel algorithm that uses uniform voxel size is simple to implement and manage but is poorly suited to represent sloped surfaces.
@@ -81,7 +90,7 @@ This saves significant CPU time as normals don't need to be pre-calculated or se
 The addition of the geometry shader was found to not have a significant decrease in rendering performance.
 
 
-\section{Vegetation} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Forests} \label{forests} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Our vegetation system currently supports rendering a large number of low-poly spruce trees, but could be expanded to support other types of vegetation.
 The system uses three levels of detail: mesh instances, impostors, and mesh facades.
@@ -107,7 +116,7 @@ The final layer uses a simple mesh to represent a group of trees.
 The appearance of this mesh is quite simplistic but at large view distances it is sufficient to represent a group of trees.
 See Figure \editor{need close-up and distant view of a facade}.
 
-\section{Water} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Water} \label{sec:water} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 Our water system uses the geometry of our far terrain (geometry clipmaps) implementation for simplicity.
@@ -118,7 +127,7 @@ This provides both a vertical offset and a normal to use for rendering.
 The result is expensive, but simple and looks reasonable.
 
 
-\section{Environment} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Environment} \label{sec:env} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The system renders a billboard to represent the sun and a sky sphere with vertex colors to represent the sky.
 
