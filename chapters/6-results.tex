@@ -1,4 +1,6 @@
 
+\iffalse \bibliography{../bibliography.bib} \fi
+
 \chapter{Results}
 
 
@@ -18,9 +20,22 @@ One motivation for using geometry clipmaps is an even distribution of screen spa
 \editor{need figure of polygonal screen-space density compared to a simple grid}
 
 Another advantage of geometry clipmaps is the exponential relationship between layer count and view distance.
-\editor{Graph of performance and view distance over number of layers}
+Figure \ref{fig:clipmaps_plot_1} shows the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
 
-Larger individual layer sizes increase view distance and reduce polygon screen-space at the cost of performance.f
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/clipmaps_plot_1.png}
+	\caption{
+		View distance and render time for a given number of clipmap layers.
+	}
+	\label{fig:clipmaps_plot_1}
+\end{figure}
+
+There is a linear relationship between frame time and layer count, but an exponential relationship between view distance and layer count.
+For a relatively minor increase in frame time an absurd view distance of over 3000 miles can be achieved.
+For reference, the largest possible view distance on earth is around 300 miles, between two mountains in South America. \cite{viewdistancemaxearth}
+
+Larger individual layer sizes increase view distance and reduce polygon screen-space at the cost of performance.
 \editor{Graph of performance over size of layers}
 
 The addition of a geometry shader normal calculation simplifies the terrain generation process and improves visual quality, but incurs a small performance hit.
