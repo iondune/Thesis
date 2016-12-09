@@ -1,4 +1,6 @@
 
+\iffalse \bibliography{../bibliography.bib} \fi
+
 \chapter{Future Work}
 
 \section{Terrain Lighting}
@@ -15,12 +17,14 @@ These horizon values are then compared against sun elevation to determine whethe
 
 While calculating horizon values for all clipmap layers may be expensive, it might be possible to calculate horizon values for e.g. every fourth layer and re-use the low resolution horizontal values in high resolution layers.
 
+
 \subsection{Accurate Scattering}
 
 Our current scattering system is a very rough approximation of real scattering.
 There are open source solutions with more accurate simulations of the Rayleigh and Mie scattering which could be used.
 
 It might also be better to use a non-photo-realistic color-ramp scattering simulation such as the one used by Firewatch.
+
 
 \subsection{Volumetric Lighting}
 
@@ -45,4 +49,4 @@ While the mesh facade rendering system is cheap, it is a very rough visual appro
 It is also not sufficiently cheap to render at significant scale.
 As such, the current system has a much shorter view distance for vegetation than it does for terrain.
 
-Using a GPU ray-cast simulation of forests would produce much larger view distances and improved visual approximation. \editor{cite the paper that did this}
+Using a GPU ray-cast simulation of forests could produce much larger view distances and improved visual approximation. \cite{terraintreecast}
