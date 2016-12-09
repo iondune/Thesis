@@ -3,7 +3,10 @@
 
 \chapter{Results}
 
-\section{Screenshots}
+\section{Images}
+
+The following screenshots were rendered at around 180 frames per second with a 2560x1440 resolution.
+The test machine was a desktop computer with an Intel i7-5820K 3.3GHz CPU, a Nvidia GTX 980 GPU, and 16 GB of RAM.
 
 Figures \ref{fig:screenshot00} and \ref{fig:screenshot01} show a view of a forest region with mountain regions in the distance.
 Figures \ref{fig:screenshot02} and \ref{fig:screenshot03} show a mountain region.
@@ -249,7 +252,8 @@ Figure \ref{fig:tree_plot_2} shows the render performance for each group size.
 	\begin{axis}[
 		xlabel=Group Size (ft),
 		ylabel=Frame Time (ms),
-		width=11cm
+		width=11cm,
+		ymin=0
 		]
 		\addplot[color=orange,mark=*] coordinates
 		{
