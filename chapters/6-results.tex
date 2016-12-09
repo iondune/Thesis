@@ -70,7 +70,7 @@ These results indicate that that a chunk size of 32 or 64 is a good compromise b
 \section{Clipmaps}
 
 One major motivation for using geometry clipmaps  is the exponential relationship between layer count and view distance.
-Figure \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
+Figures \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
 
 \begin{figure}
 	\centering
@@ -105,6 +105,7 @@ Figure \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relation
 \end{tikzpicture}
 	\caption{
 		Geometry clipmaps render time for a given number of clipmap layers.
+		Note that the frame-time is always sub-millisecond, even for a large number of layers.
 	}
 	\label{fig:clipmaps_plot_1}
 \end{figure}
