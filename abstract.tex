@@ -4,14 +4,13 @@ Often there are a large number of visible objects as well as objects comprised o
 An open-world graphics engine must be able to render large environments at varying levels of detail and smoothly transition between detail levels to provide a believable experience.
 It is also necessary to employ special techniques to both store and generate the geometry for the environment.
 
-In this thesis we present a system for generating and rendering large exterior environments, with a focus on terrain, vegetation, and structures.
-We utilise a feature-based procedural generation algorithm to create environments with some artistic control.
+In this thesis we present a system for generating and rendering large exterior environments, with a focus on terrain and vegetation.
+We utilise a region-based procedural generation algorithm to create environments of varying types.
 This algorithm produces content that can be rendered at multiple levels of detail.
 The terrain is rendered volumetrically to support caves, overhangs, and cliffs, but is also rendered using heightmaps to allow for large view distances.
 Vegetation is implemented using procedurally generated meshes and impostors.
-The generation itself is accomplished by using a hierarchical feature representation to piece together noise samples.
 The terrain is editable in real time, which limits our ability to pre-generate or cache large amounts of geometry, and also limits the number of assumptions we can make with regard to visibility.
 
-We support a view distance of at least 25 miles in each direction, though distance objects are rendered only if very large, and at low resolution.
+We support a view distance of at least 25 miles in each direction, though distant objects are rendered at low resolution.
 The heightmap terrain used to achieve this view distance consists of over 360,000 triangles.
-Our system runs at 170 frames per second on commodity desktop hardware.
+Our system runs at 180 frames per second on commodity desktop hardware.
