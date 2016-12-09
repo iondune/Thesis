@@ -163,10 +163,57 @@ The addition of a geometry shader normal calculation simplifies the terrain gene
 \section{Vegetation}
 
 The far layers of the vegetation system are rough visual approximations of the closeup tree meshes, but are significantly less costly for rendering.
-\editor{Graph of performance meshes vs. impostors vs. batched simple geometry}
+Figure \ref{fig:tree_plot_1} shows the cost of rendering a large number of each type of representation.
 
-Increasing the size of tree groups decreases CPU performance while improving rendering performance.
-\editor{Graph of chunk size performance}
+Increasing the size of tree groups improves rendering performance by reducing the number of draw calls, but also causes larger CPU lag spikes when a new group of trees has to be generated.
+Figure \ref{fig:tree_plot_2} shows the render performance for each group size.
+
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+	\begin{axis}[
+		symbolic x coords={Mesh, Impostor, Facade},
+		xtick=data,
+		xlabel=Representation Type,
+		ylabel=Frame Time (ms),
+		width=11cm
+		]
+		\addplot[ybar,fill=purple] coordinates
+		{
+			(Mesh, 46.42)
+			(Impostor, 6.38)
+			(Facade, 1.42)
+		};
+	\end{axis}
+\end{tikzpicture}
+	\caption{
+		Tree performance vs. tree representation type, view distance set to 1280 feet.
+	}
+	\label{fig:tree_plot_1}
+\end{figure}
+
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel=Group Size (ft),
+		ylabel=Frame Time (ms),
+		width=11cm
+		]
+		\addplot[color=orange,mark=*] coordinates
+		{
+			(40, 20.48)
+			(80, 5.46)
+			(160, 2.90)
+			(320, 2.56)
+		};
+	\end{axis}
+\end{tikzpicture}
+	\caption{
+		Tree performance vs. tree group size.
+	}
+	\label{fig:tree_plot_2}
+\end{figure}
 
 
 \section{Water}
