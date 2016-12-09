@@ -9,8 +9,35 @@
 The size of voxel chunks affects rendering performance and the cost of modification.
 Since modifying the terrain requires the entire chunk mesh to be reconstructed, it is ideal to have smaller chunks.
 However, larger chunk sizes reduce the number of draw calls.
+Figure \ref{fig:voxel_plot_1} shows the relationship between chunk size and render performance for a fixed view distance.
+Since the same amount of geometry is rendered for each chunk size tested, the decrease in performance at low chunk size can be attributed to draw calls and other engine overhead.
 
-\editor{Graph of rendering performance for different chunk sizes}
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel=Chunk Size (ft),
+		ylabel=Frame Time (ms),
+		width=11cm
+		]
+		\addplot[color=green,mark=*] coordinates
+		{
+			(4,649.37)
+			(8,163.43)
+			(16,40.69)
+			(32,9.04)
+			(64,2.27)
+			(128,2.16)
+			(256,1.85)
+		};
+	\end{axis}
+\end{tikzpicture}
+	\caption{
+		Voxel terrain rendering performance for different chunk sizes.
+		For each chunk size, view distance is set to 256 feet.
+	}
+	\label{fig:voxel_plot_1}
+\end{figure}
 
 \editor{Graph of modification cost i.e. digging for different chunk sizes}
 
@@ -28,8 +55,7 @@ Figure \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relation
 	\begin{axis}[
 		xlabel=Layer Count,
 		ylabel=Frame Time (ms),
-		width=11cm,
-		xmin=0
+		width=11cm
 		]
 		\addplot[color=red,mark=*] coordinates
 		{
@@ -66,8 +92,7 @@ Figure \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relation
 	\begin{axis}[
 		xlabel=Layer Count,
 		ylabel=View Distance (miles),
-		width=11cm,
-		xmin=0
+		width=11cm
 		]
 		\addplot[color=blue,mark=*] coordinates
 		{
