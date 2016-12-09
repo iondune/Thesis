@@ -1,51 +1,24 @@
 
-@ARTICLE {halo2,
-	author  = "Damian Isla",
-	title   = "GDC 2005 Proceeding: Handling Complexity in the Halo 2 AI",
-	journal = "GDC",
-	year    = "2005",
-	month   = "mar",
-	howpublished = {\url{http://www.gamasutra.com/view/feature/130663/gdc_2005_proceeding_handling_.php}}
-}
-
-@ARTICLE {halo3,
-	author  = "Max Dyckhoff",
-	title   = "Decision Making And Knowledge Representation in Halo 3",
-	journal = "Bungie Publications",
-	year    = "2008",
-	month   = "aug"
-}
-
-@MISC {betterbattle,
-	author  = "Damian Isla",
-	title   = "Building a Better Battle: HALO 3 AI Objectives",
-	journal = "Bungie Publications",
-	year    = "2008",
-	month   = "mar",
-	howpublished = {\url{http://web.cs.wpi.edu/~rich/courses/imgd4000-d09/lectures/halo3.pdf}}
-}
-
-@MISC{gameinformer_skyrimtech,
-	author  = "Matt Bertz",
-	title   = "The Technology Behind The Elder Scrolls V: Skyrim",
-	year    = "2011",
-	month   = "jan",
-	howpublished = {\url{http://www.gameinformer.com/games/the_elder_scrolls_v_skyrim/b/xbox360/archive/2011/01/17/the-technology-behind-elder-scrolls-v-skyrim.aspx}}
-}
-
 @MISC{opengl_mipmaps,
+	title = "Multiple Levels of Detail",
+	author = "Woo, Mason and Neider, Jackie and Davis, Tom",
 	howpublished = {\url{https://people.cs.clemson.edu/~dhouse/courses/405/notes/OpenGL-mipmaps.pdf}}
 }
 
 @MISC{williams_pyramid,
+	author = "Williams, Lance",
+	title = "Pyramidal Parametrics",
 	howpublished = {\url{http://faculty.cs.tamu.edu/jchai/CPSC641/p1-williams.pdf}}
 }
 
 @MISC{gems_clipmaps,
+	author = "Asirvatham, Arul and Hoppe, Hugues",
 	howpublished = {\url{http://http.developer.nvidia.com/GPUGems2/gpugems2_chapter02.html}}
 }
 
 @MISC{gems_water,
+	author = "Finch, Mark",
+	title = "Effective Water Simulation from Physical Models",
 	howpublished = {\url{http://http.developer.nvidia.com/GPUGems/gpugems_ch01.html}}
 }
 
@@ -119,158 +92,53 @@
 
 @COMMENT http://vterrain.org/LOD/Papers/
 
-@MISC{p-bdam,
-	howpublished = {\url{http://www.crs4.it/vic/cgi-bin/bib-page.cgi?id=%27Cignoni:2003:PBD%27}}
+@InProceedings{p-bdam,
+    author = {Paolo Cignoni and Fabio Ganovelli and Enrico Gobbetti and Fabio Marton and Federico Ponchio and Roberto Scopigno},
+    title = {Planet--Sized Batched Dynamic Adaptive Meshes (P-BDAM)},
+    booktitle = {Proceedings IEEE Visualization},
+    pages = {147--155},
+    publisher = {IEEE Computer Society Press},
+    address = {Conference held in Seattle, WA, USA},
+    month = {October},
+    year = {2003},
+    abstract = { This paper describes an efficient technique for out-of-core management and interactive rendering of planet sized textured terrain surfaces. The technique, called P-Batched Dynamic Adaptive Meshes (P-BDAM), is based on BDAM structure. Data is partitioned into a set of BDAM tiles, each of them constituted by a pair of geometry bintrees of small triangular patches and an associated texture quadtree. Each triangular patch is a general triangulation of points on a displaced triangle. The proposed framework introduces several advances with respect to the state of the art: thanks to a batched host-to-graphics communication model, we outperform current adaptive tessellation solutions in terms of rendering speed; we guarantee overall geometric continuity, exploiting programmable graphics hardware to cope with the accuracy issues introduced by single precision floating points; we exploit a compressed out of core representation and speculative prefetching for hiding disk latency during rendering of out-of-core data; we efficiently construct high quality simplified representations with a novel distributed out of core simplification algorithm working on a standard PC network. },
+    url = {http://vic.crs4.it/vic/cgi-bin/bib-page.cgi?id='Cignoni:2003:PBD'},
 }
 
 @MISC{hardware_lod,
+	author = "B. D. Larsen, N. J. Christensen",
+	title = "Real-time Terrain Rendering using Smooth Hardware Optimized Level of Detail",
 	howpublished = {\url{http://www.imm.dtu.dk/pubdb/personal/showbasket.php?cmd=full_view&id=53&title=Publications&header=&footer=&css=&f=1&b=1&e=1&year=&fmt=html&order=year}}
 }
 
 @MISC{diamondterrain,
+	title = "Diamond Terrain Algorithm",
+	author = "Hakl, Henri",
 	howpublished = {\url{http://dip.sun.ac.za/~henri/terrain.html}}
 }
 
 @MISC{roambetter,
+	title = "Terrain Rendering at High Levels of Detail",
+	author = "Blow, Jonathon",
 	howpublished = {\url{http://number-none.com/blow/papers/terrain_rendering.pdf}}
 }
 
 @MISC{clod,
+	author = "Stefan Roettger, Wolfgang Heidrich, Philipp Slusallek, and Hans-Peter Seidel",
+	title = "Real-Time Generation of Continuous Levels of Detail for Height Fields",
 	howpublished = {\url{http://stereofx.org/#Papers}}
 }
 
 @MISC{roam,
+	title = "ROAMing Terrain: Real-time Optimally Adapting Meshes",
+	author = "Mark Duchaineau, Murray Wolinsky, David E. Sigeti, Mark C. Miller, Charles Aldrich, Mark B. Mineev-Weinstein",
 	howpublished = {\url{http://www.cognigraph.com/ROAM_homepage/}}
 }
 
 @MISC{righttri,
+	title = "Right Triangular Irregular Networks",
+	author = "Evans, William and Kirkpatrick, David and Townsend, Gregg",
 	howpublished = {\url{ftp://ftp.cs.arizona.edu/reports/1997/TR97-09.ps}}
-}
-
-
-@MISC{turnbased,
-	author = {Antonio Sánchez-ruiz and Stephen Lee-urban and Héctor Muñoz-avila and Belén Díaz-agudo and Pedro González-calero},
-	title = {Game AI for a Turn-based Strategy Game with Plan Adaptation and Ontology-based retrieval ∗},
-	year = {2007},
-	howpublished = {\url{http://www.cc.gatech.edu/~surban6/publs/ICAPS-PG07.pdf}}
-}
-
-@MISC{personality,
-	author  = "Richard Evans",
-	title   = "Representing Personality Traits as Conditionals",
-	howpublished = {\url{http://philpapers.org/archive/EVARPT.1.pdf}}
-}
-
-@MISC{skyrim_ign,
-	author  = "Charles Onyett",
-	title   = "FIVE CHANGES FROM OBLIVION TO SKYRIM",
-	year    = "2011",
-	howpublished = {\url{http://www.ign.com/articles/2011/04/26/five-changes-from-oblivion-to-skyrim}}
-}
-
-@MISC{skyrim_gamespy,
-	author  = "Adam Ruch",
-	title   = "Is Skyrim's AI Storytelling the Future of Gaming?",
-	year    = "2012",
-	howpublished = {\url{http://uk.pc.gamespy.com/pc/elder-scrolls-v/1217754p1.html}}
-}
-
-@MISC{skyrim_nesmith_radiant,
-	title   = "Bethesda’s Nesmith reflects on the difficult birth of Skyrim’s ‘Radiant Story’ system",
-	author  = "Heinrich Lenhardt",
-	year    = "2012",
-	howpublished = {\url{http://venturebeat.com/2012/01/27/bethesdas-nesmith-reflects-on-the-difficult-birth-of-skyrims-radiant-story-system/}}
-}
-
-@MISC{skyrim_whatsnew,
-	author  = "Robert Mullon",
-	title   = "What’s new in Skyrim: New Radiant AI and Radiant Story",
-	year    = "2012",
-	howpublished = {\url{http://elder-scrolls.alteredgamer.com/tes-5-skyrim/116302-whats-new-in-skyrim-new-radiant-ai-and-radiant-story/#secn_3}}
-}
-
-@MISC{dwarffortress_art,
-	author  = "Charlie Hall",
-	title   = "Dwarf Fortress is changing how the MOMA preserves art",
-	year    = "2014",
-	howpublished = {\url{http://www.polygon.com/2014/8/6/5973295/dwarf-fortress-is-changing-how-moma-preserves-art}}
-}
-
-@MISC{dwarffortress_forever,
-	author  = "Craig Ellsworth",
-	title   = "Dwarf Fortress: A game that will live forever?",
-	year    = "2013",
-	howpublished = {\url{http://indiegames.com/2013/03/dwarf_fortress_a_game_that_wil.html}}
-}
-
-@MISC{all_worlds_sandbox,
-	author  = "Chris Plante",
-	title   = "Opinion: 'All The World's A Sandbox'",
-	year    = "2008",
-	howpublished = {\url{http://www.gamasutra.com/php-bin/news_index.php?story=18545}}
-}
-
-@MISC{answer_set,
-	title   = "Answer Set Programming for Procedural Content Generation: A Design Space Approach",
-	author  = "A.M. Smith",
-	year    = "2011",
-	journal = "IEEE",
-	howpublished = {\url{http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=5783900&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D5783900}}
-}
-
-@inproceedings{Dormans:2011:LDM:2000919.2000921,
-	author = {Dormans, Joris},
-	title = {Level Design As Model Transformation: A Strategy for Automated Content Generation},
-	booktitle = {Proceedings of the 2Nd International Workshop on Procedural Content Generation in Games},
-	series = {PCGames '11},
-	year = {2011},
-	isbn = {978-1-4503-0872-4},
-	location = {Bordeaux, France},
-	pages = {2:1--2:8},
-	articleno = {2},
-	numpages = {8},
-	url = {http://doi.acm.org/10.1145/2000919.2000921},
-	doi = {10.1145/2000919.2000921},
-	acmid = {2000921},
-	publisher = {ACM},
-	address = {New York, NY, USA}
-}
-
-@MISC{socially_competent,
-	title   = "Steps Towards Creating Socially Competent Game Characters",
-	author  = "Jenny Brusk",
-	year    = "2014",
-	howpublished = {\url{https://gupea.ub.gu.se/handle/2077/34774}}
-}
-
-@MISC{large_world_ai,
-	title   = "An AI System for Large Open Virtual World",
-	author  = "Tomas Plch",
-	year    = "2014",
-	howpublished = {\url{http://popelka.ms.mff.cuni.cz/~cerny/papers/WarhorseAI_AIIDE_2014.pdf}}
-}
-
-@BOOK{handbook_virtuality,
-	title   = "The Oxford Handbook of Virtuality",
-	author  = "Mark Grimshaw",
-	year    = "2014",
-	chapter = "13",
-	publisher = "Oxford University Press",
-	howpublished = {\url{https://books.google.com/books?hl=en&lr=&id=gcc8BAAAQBAJ&oi=fnd&pg=PA222&ots=bcq8PwnSKu&sig=e2wxZwf9rWd2UGZQ6mV8X9UwUzs#v=onepage&q&f=false}}
-}
-
-@MISC{camera_comparison,
-	title   = "First Person vs. Third Person Perspective in Digital Games: Do Player Preferences Affect Immersion?",
-	author  = "Alena Denisova, Paul Cairns",
-	year    = "2015",
-	howpublished = {\url{http://www-users.cs.york.ac.uk/~pcairns/papers/Denisova_CHI2015.pdf}}
-}
-
-@MISC{procedural_guards,
-	title   = "Procedural Guard Placement and Behaviour Generation",
-	author  = "Qihan Xu",
-	year    = "2015",
-	howpublished = {\url{http://gram.cs.mcgill.ca/theses/xu-15-procedural.pdf}}
 }
 
 @article{Duncan:2011:MBC:2207096.2207097,
@@ -289,20 +157,6 @@
 	acmid = {2207097},
 	publisher = {ETC Press},
 	address = {Pittsburgh, PA, USA},
-}
-
-@MISC{procedural_uncertainty,
-	title   = "CONTROLLING RANDOMNESS: USING PROCEDURAL GENERATION TO INFLUENCE PLAYER UNCERTAINTY IN VIDEO GAMES",
-	author  = "Travis L. Fort",
-	year    = "2015",
-	howpublished = {\url{http://etd.fcla.edu/CF/CFH0004772/Fort_Travis_L_201505_BA.pdf}}
-}
-
-@MISC{dwarf_fortress_party,
-	title   = "Dwarf Fortress gathers at the statue and attends a party",
-	author  = "Joshua Lindsay Diaz",
-	year    = "2009",
-	howpublished = {\url{http://dspace.mit.edu/handle/1721.1/54502#files-area}}
 }
 
 @MISC{terrain_impostors,
@@ -331,13 +185,6 @@
 	author  = "Michael Buerli",
 	year    = "2013",
 	howpublished = {\url{http://digitalcommons.calpoly.edu/theses/991/}}
-}
-
-@MISC{psychic_guards,
-	title   = "NO PSYCHIC GUARDS 12",
-	author  = "Mickey 'buddah'",
-	year    = "2007",
-	howpublished = {\url{http://www.nexusmods.com/oblivion/mods/11911/}}
 }
 
 @article{hydrology,
