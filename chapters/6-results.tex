@@ -11,6 +11,8 @@ Since modifying the terrain requires the entire chunk mesh to be reconstructed, 
 However, larger chunk sizes reduce the number of draw calls.
 Figure \ref{fig:voxel_plot_1} shows the relationship between chunk size and render performance for a fixed view distance.
 Since the same amount of geometry is rendered for each chunk size tested, the decrease in performance at low chunk size can be attributed to draw calls and other engine overhead.
+Figure \ref{fig:voxel_plot_2} shows the modification cost for each chunk size.
+These results indicate that that a chunk size of 32 or 64 is a good compromise between render performance and modification cost.
 
 \begin{figure}
 	\centering
@@ -34,12 +36,36 @@ Since the same amount of geometry is rendered for each chunk size tested, the de
 \end{tikzpicture}
 	\caption{
 		Voxel terrain rendering performance for different chunk sizes.
-		For each chunk size, view distance is set to 256 feet.
+		For each chunk size, view distance is set to 512 feet.
 	}
 	\label{fig:voxel_plot_1}
 \end{figure}
 
-\editor{Graph of modification cost i.e. digging for different chunk sizes}
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel=Chunk Size (ft),
+		ylabel=Modification Time (s),
+		width=11cm
+		]
+		\addplot[color=green,mark=*] coordinates
+		{
+			(4,0.0002)
+			(8,0.0010)
+			(16,0.0068)
+			(32,0.0342)
+			(64,0.301)
+			(128,2.42)
+			(256,24.44)
+		};
+	\end{axis}
+\end{tikzpicture}
+	\caption{
+		Graph of modification cost (i.e. digging) for different chunk sizes.
+	}
+	\label{fig:voxel_plot_2}
+\end{figure}
 
 \section{Clipmaps}
 
