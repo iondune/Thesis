@@ -20,15 +20,82 @@ One motivation for using geometry clipmaps is an even distribution of screen spa
 \editor{need figure of polygonal screen-space density compared to a simple grid}
 
 Another advantage of geometry clipmaps is the exponential relationship between layer count and view distance.
-Figure \ref{fig:clipmaps_plot_1} shows the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
+Figure \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.0\textwidth]{figures/clipmaps_plot_1.png}
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel=Layer Count,
+		ylabel=Frame Time (ms),
+		width=11cm,
+		xmin=0
+		]
+		\addplot[color=red,mark=*] coordinates
+		{
+			(1,0.245)
+			(2,0.27)
+			(3,0.28)
+			(4,0.288)
+			(5,0.305)
+			(6,0.321)
+			(7,0.342)
+			(8,0.351)
+			(9,0.37)
+			(10,0.389)
+			(11,0.412)
+			(12,0.435)
+			(13,0.442)
+			(14,0.447)
+			(15,0.453)
+			(16,0.463)
+			(17,0.476)
+			(18,0.485)
+		};
+	\end{axis}
+\end{tikzpicture}
 	\caption{
-		View distance and render time for a given number of clipmap layers.
+		Geometry clipmaps render time for a given number of clipmap layers.
 	}
 	\label{fig:clipmaps_plot_1}
+\end{figure}
+
+\begin{figure}
+	\centering
+\begin{tikzpicture}
+	\begin{axis}[
+		xlabel=Layer Count,
+		ylabel=View Distance (miles),
+		width=11cm,
+		xmin=0
+		]
+		\addplot[color=blue,mark=*] coordinates
+		{
+			(1,0.024242424)
+			(2,0.048484848)
+			(3,0.096969697)
+			(4,0.193939394)
+			(5,0.387878788)
+			(6,0.775757576)
+			(7,1.551515152)
+			(8,3.103030303)
+			(9,6.206060606)
+			(10,12.41212121)
+			(11,24.82424242)
+			(12,49.64848485)
+			(13,99.2969697)
+			(14,198.5939394)
+			(15,397.1878788)
+			(16,794.3757576)
+			(17,1588.751515)
+			(18,3177.50303)
+		};
+	\end{axis}
+\end{tikzpicture}
+	\caption{
+		Geometry clipmaps view distance and for a given number of clipmap layers.
+	}
+	\label{fig:clipmaps_plot_2}
 \end{figure}
 
 There is a linear relationship between frame time and layer count, but an exponential relationship between view distance and layer count.
