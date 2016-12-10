@@ -35,7 +35,7 @@ The GPU is only able to render and shade a certain amount of geometry due to pro
 Scene geometry must be loaded into main memory, then transferred to graphics memory, both of which have throughput maximums and storage maximums.
 The hardware interface also has some CPU overhead with regard to submitting draw commands, so we are limited in the number of draw calls we can make.
 
-As such, in order to render large scenes with a large number of scene elements, we need to account of level of detail.
+As such, in order to render large scenes with a large number of scene elements, we need to account for level of detail.
 `Detail' in this context refers generally to the amount of geometry used to represent a scene element.
 Consider, for example, a tree.{}
 A high-detail representation of a tree would consist of geometry to represent branches, individual leaves, and the shape of the trunk.
