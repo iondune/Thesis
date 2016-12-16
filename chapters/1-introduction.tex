@@ -27,12 +27,15 @@ The Relic engine procedurally generates and renders terrain, vegetation, water, 
 
 For terrain generation, we implement a system for picking between a variety of landscape generators using noise algorithms.
 This system determines not only the elevation and color of the terrain, but also parameters such as forestation and material properties.
+The generated content that can be produced and rendered at multiple levels of detail.
 
-The generated terrain is rendered using a novel voxel implementation for nearby terrain and a heightmap-based implementation for distant terrain.
-The distant terrain system supports a view distance of 25 miles in all directions.
+Relic renders terrain using a heightmap-based implementation for distant terrain and a novel voxel implementation for nearby terrain.
+The distant terrain system supports large view distances, up to 3000 miles in all directions.
+The use of a volumetric representation allows the terrain to support caves, overhangs, and cliffs, features which cannot be represented by a heightmap renderer.
+The volumetric terrain is also editable in real time.
 
-Forests are rendered in Relic using a combination of three different rendering approaches.
-Terrain, forests, and other scene elements including the sky and water render at 170 frames per second with a 2560x1440 resolution.
+Forests are rendered using a combination of three different rendering approaches.
+Terrain, forests, and other scene elements including the sky and water render with 25 mile view distance at a 2560x1440 resolution at 180 frames per second.
 See Figure~\ref{fig:system1} for an overview of the Relic landscape system.
 
 \begin{figure}
@@ -41,6 +44,8 @@ See Figure~\ref{fig:system1} for an overview of the Relic landscape system.
   \caption{Overview of the presented system}
   \label{fig:system1}
 \end{figure}
+
+Relic is written in just over 15,000 lines of C++ code and uses OpenGL to interface with graphics hardware.
 
 
 \section{Outline}
