@@ -63,13 +63,13 @@ Level-of-detail is commonly abbreviated LOD.
 A rendering system that is capable of representing scene elements in both high-detail and low-detail formats is referred to as a LOD rendering system.
 A LOD system must switch freely between these representations as the viewpoint changes to reduce the amount of geometry and draw calls required to render a large scene, while still representing nearby objects at full detail.
 
-One common LOD system that is implemented in most graphics hardware is texture mipmapping. \cite{opengl_mipmaps}
+One common LOD system that is implemented in most graphics hardware is texture mipmapping \cite{opengl_mipmaps}.
 
 
 \section{Terrain Rendering} \label{terrain_render}
 
 Terrain rendering is a prime candidate for using a level-of-detail algorithm because terrain consists of a large amount of geometry and is visible both up close and at large view distances.
-Over the years there have been many published techniques for terrain rendering.
+Over the years there have been many published techniques for terrain rendering
 \cite{hardware_lod}
 \cite{roambetter}
 \cite{bruneton_terrain}
@@ -77,7 +77,7 @@ Over the years there have been many published techniques for terrain rendering.
 \cite{righttri}
 \cite{diamondterrain}
 \cite{roam}
-\cite{clod}
+\cite{clod}.
 However, we will focus on some more modern techniques that serve as the basis for the terrain system presented in this paper.
 
 
@@ -99,7 +99,7 @@ See Figure~\ref{fig:hm} for an example of a heightmap.
 
 \subsection{Geometry Clipmaps}
 
-Geometry clipmaps is a terrain rendering technique from 2004 that uses a series of nested regular grids to represent each detail level of the terrain. \cite{geometry_clipmaps}
+Geometry clipmaps is a terrain rendering technique from 2004 that uses a series of nested regular grids to represent each detail level of the terrain \cite{geometry_clipmaps}.
 A regular grid of terrain at maximum detail is centered around the viewpoint.
 Another regular grid of terrain at twice the scale (and thus half resolution) is centered around that inner grid, but with a hole cut out where the inner grid is located.
 Thus the second grid is clipped by the first grid (i.e. a clipmap).
@@ -131,9 +131,9 @@ See Figures \ref{fig:toroid} and \ref{fig:clipmaps_update}.
 	% http://http.developer.nvidia.com/GPUGems2/elementLinks/02_geoclipmaps_08part1.jpg
 \end{figure}
 
-More recently, work has been done on improving the geometry clipmaps technique for use with modern rendering hardware, but the principles remain the same. \cite{gems_clipmaps}
+More recently, work has been done on improving the geometry clipmaps technique for use with modern rendering hardware, but the principles remain the same \cite{gems_clipmaps}.
 
-The system in this paper uses a modified version of geometry clipmaps, which is discussed in Section \ref{clipterrain}
+The system in this paper uses a modified version of geometry clipmaps, which is discussed in Section \ref{clipterrain}.
 
 \section{Terrain Generation} \label{terrain_gen}
 
@@ -158,7 +158,7 @@ Procedural terrain generation methodologies usually employ one or more of the fo
 \subsection{Physical process simulations}
 
 Real terrain is shaped by erosion, the gradual shaping of landscape caused by water, wind, and other forces.
-Some terrain generation techniques simulate these physical processes on a starter dataset to create realistic surfaces. \cite{hydrology}
+Some terrain generation techniques simulate these physical processes on a starter dataset to create realistic surfaces \cite{hydrology}.
 
 However, the nature of the physical simulation usually requires the entire world (or at least individual continents) to be generated at once.
 This means that the generation of very large worlds can be very expensive in terms of both processing time and memory requirements.
@@ -169,7 +169,7 @@ Physical process simulations are often used in fields where time and memory requ
 \subsection{Fractal processes}
 
 Another technique for generating terrain is a fractal process, some algorithm that operates on geometry to add detail and which can be re-applied at smaller and smaller scale until a highly detailed surface results.
-One common form of fractal process is the Diamond-square Algorithm which sequentially subdivides and modulates a regular grid.
+One common form of fractal process is the Diamond-square Algorithm which sequentially subdivides and modulates a regular grid \cite{def_rend_terrain}.
 
 
 \subsection{Noise Algorithms}
