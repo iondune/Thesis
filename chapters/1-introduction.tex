@@ -20,11 +20,10 @@ It is not be possible to store the entirety of the visible scene in a modern com
 Game developers attempting to render an open-world game must use techniques that not only load in different parts of the environment as they are needed, but also load those parts at differing detail levels.
 
 
-\section{Our System}
+\section{Relic Engine}
 
-This paper describes a game engine designed to render large exterior environments.
-We discuss related work from a variety of topics, and present a system which incorporates many of these ideas.
-Our system procedurally generates and renders terrain, vegetation, water, and atmospheric effects.
+This paper describes Relic, a game engine designed to render large exterior environments.
+The Relic engine procedurally generates and renders terrain, vegetation, water, and atmospheric effects.
 
 For terrain generation, we implement a system for picking between a variety of landscape generators using noise algorithms.
 This system determines not only the elevation and color of the terrain, but also parameters such as forestation and material properties.
@@ -32,9 +31,9 @@ This system determines not only the elevation and color of the terrain, but also
 The generated terrain is rendered using a novel voxel implementation for nearby terrain and a heightmap-based implementation for distant terrain.
 The distant terrain system supports a view distance of 25 miles in all directions.
 
-Forests are rendered by the system using a combination of three different rendering approaches.
+Forests are rendered in Relic using a combination of three different rendering approaches.
 Terrain, forests, and other scene elements including the sky and water render at 170 frames per second with a 2560x1440 resolution.
-See Figure~\ref{fig:system1} for an overview of the system.
+See Figure~\ref{fig:system1} for an overview of the Relic landscape system.
 
 \begin{figure}
   \centering
@@ -42,3 +41,11 @@ See Figure~\ref{fig:system1} for an overview of the system.
   \caption{Overview of the presented system}
   \label{fig:system1}
 \end{figure}
+
+
+\section{Outline}
+
+In Chapter \ref{bgrnd} we discuss some of the terrain rendering and generation techniques that form the basis for our system.
+Then, in Chapter \ref{rworks} we compare some similar systems to the capabilities of Relic.
+In Chapters \ref{generation} and \ref{rendering} we describe the contributions of this thesis.
+Chapter \ref{results} contains the performance validation of each rendering system, and Chapter \ref{futurework} outlines potential future improvements for the engine.
