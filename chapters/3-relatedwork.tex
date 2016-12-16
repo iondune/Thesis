@@ -4,17 +4,27 @@
 \section{Terrain Generation}
 
 Some recent publications in the field of terrain generation have produced impressive landscapes.
-G{\'e}nevaux et al. used a vector-based hydrology simulation with user-controllable parameters. \cite{hydrology}
+G{\'e}nevaux et al. used a vector-based hydrology simulation with user-controllable parameters \cite{hydrology}.
 One interesting aspect to note is their novel approach to storing the terrain which focuses on a hierarchy of features, similar to constructive solid geometry.
-Zhou et al. implemented a system to stitch together samples from real-world DEM data, also with user-controllable parameters. \cite{DEMsynthesis}
+Zhou et al. implemented a system to stitch together samples from real-world DEM data, also with user-controllable parameters \cite{DEMsynthesis}.
+
+By comparison, the generation system Relic uses is much simpler, but it allows height values to be easily generated at arbitrary resolution.
 
 \section{Tree Rendering}
 
 Many published techniques for rendering forests involve ray casting or ray marching.
-Mantler et al. add tree rendering to a terrain renderer by ray marching on an appended tree heightmap. \cite{terraintreecast}
-Bruenton \& Neyret use pre-rendered depth maps of tree models from many possible angles in addition to an algorithm for distant forest shading. \cite{bruneton_trees}
+Mantler et al. add tree rendering to a terrain renderer by ray marching on an appended tree heightmap \cite{terraintreecast}.
+Bruenton \& Neyret use pre-rendered depth maps of tree models from many possible angles in addition to an algorithm for distant forest shading \cite{bruneton_trees}.
+Pre-rendered depth maps are a more complex version of impostor rendering.
+The low-poly trees of Relic are more sufficiently represented by an impostor than photo-realistic trees, and impostors are far less intensive to both generate and render than depth maps.
 
-% \section{Minecraft}
+\section{Minecraft}
+
+Minecraft is an open-world game that uses voxels for representing and rendering terrain \cite{word_of_notch}.
+The voxel representation makes it possible to support caves and overhangs, as well as real-time editing.
+However, all terrain is represented at the same detail level, making it difficult to support large view distances.
+Additionally, minecraft has a vertical range limited to 256 meters \cite{minecraft_altitude}.
+
 
 
 
