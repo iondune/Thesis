@@ -14,19 +14,26 @@ By comparison, the generation system Relic uses is much simpler, but it allows h
 
 Many published techniques for rendering forests involve ray casting or ray marching.
 Mantler et al. add tree rendering to a terrain renderer by ray marching on an appended tree heightmap \cite{terraintreecast}.
+
 Bruenton \& Neyret use pre-rendered depth maps of tree models from many possible angles in addition to an algorithm for distant forest shading \cite{bruneton_trees}.
 Pre-rendered depth maps are a more complex version of impostor rendering.
 The low-poly trees of Relic are more sufficiently represented by an impostor than photo-realistic trees, and impostors are far less intensive to both generate and render than depth maps.
 
 \section{Minecraft}
 
-Minecraft is an open-world game that uses voxels for representing and rendering terrain \cite{word_of_notch}.
+{\em Minecraft} is an open-world game that uses voxels for representing and rendering terrain \cite{word_of_notch}.
 The voxel representation makes it possible to support caves and overhangs, as well as real-time editing.
 However, all terrain is represented at the same detail level, making it difficult to support large view distances.
-Additionally, minecraft has a vertical range limited to 256 meters \cite{minecraft_altitude}.
+Additionally, {\em Minecraft} has a vertical range limited to 256 meters \cite{minecraft_altitude}.
 
+\section{Voxels and Volumetric Terrain}
 
+Marching cubes is an algorithm for creating a polygonal mesh from volumetric data \cite{marchingcubes}.
+Unlike the voxel meshing used by {\em Minecraft}, Marching cubes can be used to create smooth surfaces because grid values are scalar distances, not boolean occupancy values.
+Relic's voxel algorithm operates on a boolean grid (which is more friendly for problems like in-game editing) but can still produce slanted surfaces.
 
+The Transvoxel Algorithm is a technique for stitching together volumetric meshes so that level-of-detail techniques can be applied to volumetric terrain \cite{lengyel}.
+Relic avoids the need to apply LOD to volumetric terrain by using a heightmap representation for distant terrain.
 
 
 
