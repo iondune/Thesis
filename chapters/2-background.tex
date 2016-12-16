@@ -173,7 +173,7 @@ One common form of fractal process is the Diamond-square Algorithm which sequent
 \subsection{Noise Algorithms}
 
 Noise algorithms are similar to fractal processes but do not need to operate on a regular grid of fixed size \cite{perlin}.
-The most typical way that noise algorithms are used is by generating a patch or formula for noise (typically in 2 dimensions, though sometimes more) and employing a technique called fractional Brownian motion to create a heightmap.
+The most typical way that noise algorithms are used is by generating a patch or formula for noise (typically in two dimensions, though sometimes more) and employing a technique called fractional Brownian motion to create a heightmap.
 The primary advantage of noise terrain generation over the previous two methods is that the generation of an individual elevation value is entirely independent of neighboring values.
 This means that a noise algorithm can be more easily parallelized, and applied more effectively for use with a LOD terrain rendering system.
 
@@ -274,6 +274,6 @@ While this approach does not accurately account for any non-visible surface (inc
 
 \subsection{HBAO+}
 
-Horizon-based ambient occlusion (plus) is an improved and modern version of SSAO developed by Nvidia.
+Horizon-based ambient occlusion (plus) is an improved and modern version of SSAO developed by Nvidia \cite{hbao}.
 Nvidia provides HBAO+ as free software to game engine developers.
 As such, we choose to use HBAO+ in our engine instead of writing our own implementation of SSAO.
