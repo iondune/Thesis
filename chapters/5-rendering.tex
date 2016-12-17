@@ -130,6 +130,28 @@ Our implementation uses a per-triangle normal calculation in a geometry shader s
 This saves significant CPU time as normals don't need to be pre-calculated or sent to the GPU normal map.
 The addition of the geometry shader was found to not have a significant decrease in rendering performance.
 
+\subsection{Terrain Blending}
+
+In order to use both the near and far terrain representations, Relic implements a blend region between the two systems.
+This blend is implemented in a post-processing pass that uses separate frame buffers for each terrain representation.
+The algorithm operates on individual fragments.
+If both systems are visible at a given fragment, and the distance to the fragment is near the maximum distance of the near terrain representation, a blend of the two systems is used.
+For all other fragments, the near terrain fragment is selected if it is visible, otherwise the far terrain fragment is selected.
+However, if only the far terrain fragment is visible but the distance is closer to the viewpoint than the start of the blend region, the fragment is discarded.
+This is to prevent visual artifacts when the far terrain representation happens to be higher on the Y axis than the near representation.
+See Figure \ref{fig:terrain_overlap} for an example of where this artifact may occur.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.75\textwidth]{figures/terrain_overlap.png}
+	\caption{
+		In this image the red line represents the shape of the near (voxel) terrain and the blue line represents the shape of the far (clipmaps) terrain.
+		The light blue shaded region is an area where the far terrain might show above the near terrain from this side view.
+		Relic solves this problem by culling all nearby fragments from the far terrain render.
+	}
+	\label{fig:overlap}
+\end{figure}
+
 
 \section{Forests} \label{forests} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -211,12 +233,12 @@ Insufficient precision in the depth buffer results in Z-fighting on distant elem
 \begin{figure}
 	\centering
 		\includegraphics[width=0.6\textwidth]{figures/nvidia_precision_1.jpg}
-	\caption{Mapping of Z values to depth values. The tick marks on the blue line indicate the precision of the depth buffer.}
+	\caption{Mapping of Z values to depth values \cite{nvidia_depth_precision}. The tick marks on the blue line indicate the precision of the depth buffer.}
 	\label{fig:nvidia_precision_1}
 \end{figure}
 
 One problem is that the mapping of Z values to depth values has a reciprocal shape, such that most of the depth buffer precision is alloted for nearby fragments (See Figure \ref{fig:nvidia_precision_1}).
-To improve depth buffer performance for far distances, we use the inverted depth buffer trick. \cite{nvidia_depth_precision}
+To improve depth buffer performance for far distances, we use the inverted depth buffer trick \cite{nvidia_depth_precision}.
 By using a DirectX compatibility feature of OpenGL, we can use a depth buffer ranging from zero to one instead of negative one to one.
 Then, by storing depths reversed from the conventional direction, we can utilize the inherent distribution of floating point precision to even out the distribution of depth values in our scene.
 The conventional depth direction has near values at zero and far values at one.

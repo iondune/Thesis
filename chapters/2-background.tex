@@ -216,18 +216,42 @@ The general approach is:
 \end{enumerate}
 
 In general you do not need to exactly double the frequency or halve the amplitude each octave, but can fine tune these values e.g. by multiplying the frequency by 1.2 and the amplitude by 0.3.
+See Figure \ref{fig:fbm1} for an example of fractal noise.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.6\textwidth]{figures/fbm1}
+	\caption{Fractal noise render}
+	\label{fig:fbm1}
+\end{figure}
 
 \subsubsection{Ridged Noise}
 
 An additional step can be added before summing each individual octave.
 By first taking the negated absolute value of each generated noise value, a ridged version of fractional brownian motion can be created.
 This technique is commonly referred to as ridged fractal generator, or sometimes a turbulence generator \cite{perlin}.
+See Figure \ref{fig:ridged} for an example of ridged noise.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/ridgedfractal}
+	\caption{Ridged fractal noise render on the left, with a shaded render of the same noise pattern on the right.}
+	\label{fig:ridged}
+\end{figure}
 
 \subsubsection{Noise Distortion}
 
 Ridged noise works on by modifying the range of each noise function, but it is also possible to modify the domain in a similar fashion.
 Using two additional fractal generators, an offset vector can be produced for each sample of the height generator.
 This technique helps break up the homogeneous appearance of generated terrain by shrinking and expanding different areas.
+See Figure \ref{fig:distorted} for an example of distorted noise.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.6\textwidth]{figures/distorted}
+	\caption{Distorted fractal noise render}
+	\label{fig:distorted}
+\end{figure}
 
 
 \section{Voxels} \label{voxels}
