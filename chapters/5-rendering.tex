@@ -28,7 +28,7 @@ Figure \ref{fig:minimumvoxel} shows the pseudo-voxel with the fewest possible su
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.5\textwidth]{figures/minimumvoxel.png}
+		\includegraphics[width=0.5\textwidth]{figures/minimumvoxel_edges.png}
 	\caption{Red spheres indicate a full sub-voxel, grey indicates an empty sub-voxel.}
 	\label{fig:minimumvoxel}
 \end{figure}
@@ -148,14 +148,35 @@ The mesh instances layer simply uses instance rendering to draw the tree model i
 The impostors layer draws a billboard for each tree in the group.
 During initialization, the colors and normals of the tree model are rendered to textures for use in drawing each impostor.
 The impostors are locked in their X and Z axis rotation so that the base of the impostor always rests on the ground, and to reduce artifacts when the camera is high above or below the impostor.
-See Figure \editor{need comparison of a tree billboard rotating around all axis}.
+See Figure \ref{fig:tree_billboards} for a comparison between the cylindrical billboards we use and the alternative spherical billboard.
 The rotation around the Y-axis is used to rotate the normals of the impostor so that lighting is accurate for impostors in all directions.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/tree_billboards.jpg}
+	\caption{
+		In the left image, tree impostors are rendered on spherical billboards.
+		At this elevated viewpoint, the billboard effect is clearly visible when compared to the tree mesh instances in the lower corner of the image.
+		The right image shows the same scene as rendered by the Relic engine, using cylindrical billboards (where only the Y axis rotates).
+	}
+	\label{fig:tree_billboards}
+\end{figure}
 
 \subsection{Mesh Facades}
 
 The final layer uses a simple mesh to represent a group of trees.
 The appearance of this mesh is quite simplistic but at large view distances it is sufficient to represent a group of trees.
-See Figure \editor{need close-up and distant view of a facade}.
+See Figure \ref{fig:tree_facades} for a comparison between mesh facades up close and at a distance.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/tree_facades.jpg}
+	\caption{
+		On the left, a tree facade is shown in detail.
+		The image on the right is many tree facades at great distance.
+	}
+	\label{fig:tree_facades}
+\end{figure}
 
 \section{Water} \label{sec:water} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
