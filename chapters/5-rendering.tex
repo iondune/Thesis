@@ -1,14 +1,6 @@
 
 \chapter{Rendering} \label{rendering}
 
-\begin{figure}
-  \centering
-    \includegraphics[width=0.8\textwidth]{figures/RenderSystem}
-  \caption{Landscape rendering system overview}
-  \label{fig:renderoverview}
-\end{figure}
-
-
 Our landscape rendering system consists of three primary components - a nearby terrain renderer, a distant terrain renderer, and a forest renderer.
 The nearby terrain renderer uses a meshing algorithm influenced by voxel terrain systems (Section \ref{voxterrain}).
 This mesh generation is expensive but is necessary for meaningful player interaction and is limited to a very narrow region around the viewpoint.
@@ -17,11 +9,10 @@ The nature of the clipmaps algorithm makes it possible to extend the terrain vie
 Our forest system uses mesh instances, impostors, and a similar representation called facades to render vast forests (Section \ref{forests}).
 The system is designed to render a large number of individual trees with the highest performance possible.
 In addition to these three primary components, our system also renders water and other additional environment aspects, discussed in Sections \ref{sec:water} and \ref{sec:env}.
-See Figure \ref{fig:renderoverview} for an overview of the system.
 
 \section{Nearby Terrain} \label{voxterrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Nearby terrain is rendering using a pseudo-voxel representation designed to allow for sloped surfaces while maintaining intuitive live editing capabilities.
+Nearby terrain is rendered using a pseudo-voxel representation designed to allow for sloped surfaces while maintaining intuitive live editing capabilities.
 A voxel algorithm that uses uniform voxel size is simple to implement and manage but is poorly suited to represent sloped surfaces.
 Fully volumetric terrain implementations allow for arbitrary slopes but are less intuitive for manipulation by players and navigation by AI.
 We utilize a pseudo-voxel system that allows for diagonal faces in addition to solid voxels.
@@ -29,7 +20,7 @@ This system allows for simple grid-based editing and simple physics calculations
 
 \subsection{Voxel algorithm}
 
-In principle, the system works by breaking down each individual voxel into 8 sub-voxels (one for each corner of the cube) and generating diagonal faces based on which of these sub-voxels are occupied.
+In principle, the system works by breaking down each individual voxel into eight sub-voxels (one for each corner of the cube) and generating diagonal faces based on which of these sub-voxels are occupied.
 However, certain sub-voxel configurations are considered degenerate and are automatically trimmed to a lesser configuration.
 For example, in our system any pseudo-voxel with only a single sub-voxel occupied is automatically trimmed to an empty voxel.
 In this case the trimming occurs because there is no diagonal face to represent just a single corner of a voxel.
@@ -82,6 +73,7 @@ See Figures \ref{fig:trimcomparison1} and \ref{fig:trimcomparison2} for a compar
 \subsection{Face Generation}
 
 Triangles are generated for each pseudo-voxel configuration using lookup tables for efficiency and simplicity.
+The largest lookup table is 12 kilobytes, so the memory impact of using the lookup tables is minimal.
 Triangles are divided into two categories: interior and exterior.
 
 \subsubsection{Exterior Faces}
@@ -126,7 +118,7 @@ The original geometry clipmaps implementation recalculates index buffers pre-fra
 This makes it possible to seamlessly transition to lower-resolution terrain when the viewpoint moves rapidly.
 
 However, our system locks the size of each layer so that the index buffers can be pre-calculated.
-This was found to significantly reduce CPU overhead
+This was found to significantly reduce CPU overhead.
 
 \subsection{Normal Calculation}
 
