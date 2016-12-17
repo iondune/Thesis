@@ -19,26 +19,26 @@ While calculating horizon values for all clipmap layers may be expensive, it mig
 \subsection{Accurate Scattering}
 
 Our current scattering system is a very rough approximation of real scattering.
-There are open source solutions with more accurate simulations of the Rayleigh and Mie scattering which could be used.
+There are open source solutions with more accurate simulations of the Rayleigh and Mie scattering which could be used \cite{atmosphere}.
 
-It might also be better to use a non-photo-realistic color-ramp scattering simulation such as the one used by Firewatch.
+It might also be better to use a non-photo-realistic color-ramp scattering simulation such as the one used by Firewatch \cite{firewatch_fog}.
 
 
 \subsection{Volumetric Lighting}
 
-Nvidia Gameworks, which our system uses for screen-space ambient occlusion, also has an implementation of volumetric lighting that could be used for more accurate sunset and sunrise effects.
+Nvidia Gameworks, which Relic uses for screen-space ambient occlusion, also has an implementation of volumetric lighting that could be used for more accurate sunset and sunrise effects \cite{nvidia_volumetric}.
 
 
 \section{Water}
 
 Our water system uses the shape of geometry clipmaps for simplicity but this causes a lot of water vertices to be rendered off-screen.
-Using a grid projected from screen-space is a common way to render water at different view scales.
+Using a grid projected from screen-space is one way to efficiently render water at different view scales \cite{bruneton_water}.
 
 
 \section{Terrain Generation}
 
 Our system uses a standard grid to store the world map, but this brings some square artifacts into the large-scale terrain features.
-Other similar systems use a Voronoi diagram to produce more varied large-scale structure.
+Other similar systems use a Voronoi diagram to produce more varied large-scale structure \cite{polygonal_map}.
 
 
 \section{Vegetation}
