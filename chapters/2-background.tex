@@ -61,7 +61,7 @@ Level-of-detail is commonly abbreviated LOD.
 A rendering system that is capable of representing scene elements in both high-detail and low-detail formats is referred to as a LOD rendering system.
 A LOD system must switch freely between these representations as the viewpoint changes to reduce the amount of geometry and draw calls required to render a large scene, while still representing nearby objects at full detail.
 
-One common LOD system that is implemented in most graphics hardware is texture mipmapping \cite{opengl_mipmaps}.
+One common LOD system that is implemented in most graphics hardware is texture mipmapping \cite{williams_pyramid}.
 
 
 \section{Terrain Rendering} \label{terrain_render}
@@ -69,13 +69,13 @@ One common LOD system that is implemented in most graphics hardware is texture m
 Terrain rendering is a prime candidate for using a level-of-detail algorithm because terrain consists of a large amount of geometry and is visible both up close and at large view distances.
 Over the years there have been many published techniques for terrain rendering
 \cite{hardware_lod}
-\cite{roambetter}
 \cite{bruneton_terrain}
 \cite{p-bdam}
 \cite{righttri}
 \cite{diamondterrain}
 \cite{roam}
-\cite{clod}.
+\cite{clod}
+\cite{geomipmap}.
 However, we will focus on some more modern techniques that serve as the basis for the terrain system presented in this paper.
 
 

@@ -1,18 +1,27 @@
 
-@MISC{opengl_mipmaps,
-	title = "Multiple Levels of Detail",
-	author = "Woo, Mason and Neider, Jackie and Davis, Tom",
-	howpublished = {\url{https://people.cs.clemson.edu/~dhouse/courses/405/notes/OpenGL-mipmaps.pdf}}
-}
-
-@MISC{williams_pyramid,
-	author = "Williams, Lance",
-	title = "Pyramidal Parametrics",
-	howpublished = {\url{http://faculty.cs.tamu.edu/jchai/CPSC641/p1-williams.pdf}}
+@article{williams_pyramid,
+ author = {Williams, Lance},
+ title = {Pyramidal Parametrics},
+ journal = {SIGGRAPH Comput. Graph.},
+ issue_date = {July 1983},
+ volume = {17},
+ number = {3},
+ month = jul,
+ year = {1983},
+ issn = {0097-8930},
+ pages = {1--11},
+ numpages = {11},
+ url = {http://doi.acm.org/10.1145/964967.801126},
+ doi = {10.1145/964967.801126},
+ acmid = {801126},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Antialiasing, Illumination models, Modeling, Pyramidal data structures, Reflectance mapping, Texture mapping, Visible surface algorithms},
 }
 
 @MISC{gems_clipmaps,
 	author = "Asirvatham, Arul and Hoppe, Hugues",
+	title = "Terrain Rendering Using GPU-Based Geometry Clipmaps",
 	howpublished = {\url{http://http.developer.nvidia.com/GPUGems2/gpugems2_chapter02.html}}
 }
 
@@ -105,72 +114,93 @@
     url = {http://vic.crs4.it/vic/cgi-bin/bib-page.cgi?id='Cignoni:2003:PBD'},
 }
 
-@MISC{hardware_lod,
-	author = "B. D. Larsen, N. J. Christensen",
-	title = "Real-time Terrain Rendering using Smooth Hardware Optimized Level of Detail",
-	howpublished = {\url{http://www.imm.dtu.dk/pubdb/personal/showbasket.php?cmd=full_view&id=53&title=Publications&header=&footer=&css=&f=1&b=1&e=1&year=&fmt=html&order=year}}
+@ARTICLE{hardware_lod,
+    author       = "B. D. Larsen and N. J. Christensen",
+    title        = "Real-time Terrain Rendering using Smooth Hardware Optimized Level of Detail",
+    year         = "2003",
+    month        = "feb",
+    keywords     = "terrain, viewing algorithms, frame-to-frame coherence, multiresolution modelling, continuous level of detail",
+    pages        = "282-9",
+    journal      = "Journal of {WSCG}",
+    volume       = "11",
+    editor       = "",
+    number       = "2",
+    publisher    = "",
+    note         = "WSCG'2003: 11th International Conference in Central Europe on Computer Graphics, Visualization and Digital Interactive Media",
+    url          = "http://www2.imm.dtu.dk/pubdb/p.php?1425",
+    abstract     = "We present a method for real-time level of detail reduction that is able to display high-complexity polygonal surface data. A compact and efficient regular grid representation is used. The method is optimized for modern, low-end consumer {3D} graphics cards. We avoid sudden changes of the geometry - also known as ’popping’, when reducing the geometry by exploiting the low-level hardware programmability in order to maintain interactive framerates. Terrain models are repolygonized in order to minimizing the visible error. Furthermore, the method minimizes {CPU} usage during rendering and requires minimal pre-processing. We believe that this is the first time that a smooth level of detail has been implemented in commodity hardware.",
+    isbn_issn    = "{ISSN} 1213-6972"
 }
 
-@MISC{diamondterrain,
+@misc{geomipmap,
+    author = {Willem H. de Boer},
+    title = {Fast Terrain Rendering Using Geometrical MipMapping},
+    year = {2000}
+}
+
+@ARTICLE{diamondterrain,
 	title = "Diamond Terrain Algorithm",
-	author = "Hakl, Henri",
-	howpublished = {\url{http://dip.sun.ac.za/~henri/terrain.html}}
+	author = "Hakl, H. and Van Zijl, L.",
+	journal = "South African Computer Journal",
+	year = "2002",
+	month = "December",
+	url = {\url{http://dip.sun.ac.za/~henri/terrain.html}}
 }
 
-@MISC{roambetter,
-	title = "Terrain Rendering at High Levels of Detail",
-	author = "Blow, Jonathon",
-	howpublished = {\url{http://number-none.com/blow/papers/terrain_rendering.pdf}}
+@inproceedings{clod,
+ author = {Lindstrom, Peter and Koller, David and Ribarsky, William and Hodges, Larry F. and Faust, Nick and Turner, Gregory A.},
+ title = {Real-time, Continuous Level of Detail Rendering of Height Fields},
+ booktitle = {Proceedings of the 23rd Annual Conference on Computer Graphics and Interactive Techniques},
+ series = {SIGGRAPH '96},
+ year = {1996},
+ isbn = {0-89791-746-4},
+ pages = {109--118},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/237170.237217},
+ doi = {10.1145/237170.237217},
+ acmid = {237217},
+ publisher = {ACM},
+ address = {New York, NY, USA},
 }
 
-@MISC{clod,
-	author = "Stefan Roettger",
-	title = "Real-Time Generation of Continuous Levels of Detail for Height Fields",
-	howpublished = {\url{http://stereofx.org/#Papers}}
+
+
+@ARTICLE{roam,
+	title= "Real-Time Optimally Adapting Meshes: Terrain Visualization in Games",
+	journal= "International Journal of Computer Games Technology",
+	year= "2008",
+	author= "White, Matthew",
+	url = {\url{http://dx.doi.org/10.1155/2008/753584}}
 }
 
-@MISC{roam,
-	title = "ROAMing Terrain: Real-time Optimally Adapting Meshes",
-	author = "Mark Duchaineau",
-	howpublished = {\url{http://www.cognigraph.com/ROAM_homepage/}}
+@techreport{righttri,
+ author = {Evans, William and Kirkpatrick, David and Townsend, Gregg},
+ title = {Right Triangular Irregular Networks},
+ year = {1997},
+ source = {http://www.ncstrl.org:8900/ncstrl/servlet/search?formname=detail\&id=oai%3Ancstrlh%3Aarizona_cs%3Ancstrl.arizona_cs%2F%2FTR97-09},
+ publisher = {University of Arizona},
+ institution = {University of Arizona},
+ address = {Tucson, AZ, USA},
 }
 
-@MISC{righttri,
-	title = "Right Triangular Irregular Networks",
-	author = "Evans, William and Kirkpatrick, David and Townsend, Gregg",
-	howpublished = {\url{ftp://ftp.cs.arizona.edu/reports/1997/TR97-09.ps}}
-}
-
-@article{Duncan:2011:MBC:2207096.2207097,
-	author = {Duncan, Sean C.},
-	title = {Minecraft, Beyond Construction and Survival},
-	journal = {Well Played},
-	issue_date = {January 2011},
-	volume = {1},
-	number = {1},
-	month = jan,
-	year = {2011},
-	issn = {2164-344X},
-	pages = {1--22},
-	numpages = {22},
-	url = {http://dl.acm.org/citation.cfm?id=2207096.2207097},
-	acmid = {2207097},
-	publisher = {ETC Press},
-	address = {Pittsburgh, PA, USA},
-}
-
-@MISC{terrain_impostors,
-	title   = "Terrain Impostors",
-	author  = "William Hamilton Hess",
-	year    = "2010",
-	howpublished = {\url{http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1476&context=theses}}
-}
-
-@MISC{geometry_clipmaps,
-	title   = "Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids",
-	author  = "Frank Losasso",
-	year    = "2004",
-	howpublished = {\url{http://research.microsoft.com/en-us/um/people/hoppe/geomclipmap.pdf}}
+@article{geometry_clipmaps,
+ author = {Losasso, Frank and Hoppe, Hugues},
+ title = {Geometry Clipmaps: Terrain Rendering Using Nested Regular Grids},
+ journal = {ACM Trans. Graph.},
+ issue_date = {August 2004},
+ volume = {23},
+ number = {3},
+ month = aug,
+ year = {2004},
+ issn = {0730-0301},
+ pages = {769--776},
+ numpages = {8},
+ url = {http://doi.acm.org/10.1145/1015706.1015799},
+ doi = {10.1145/1015706.1015799},
+ acmid = {1015799},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {level-of-detail control, terrain compression and synthesis},
 }
 
 @MISC{inigo_terrain_lighting,
@@ -178,13 +208,6 @@
 	author  = "Inigo Quilez",
 	year    = "2013",
 	howpublished = {\url{http://www.iquilezles.org/www/articles/outdoorslighting/outdoorslighting.htm}}
-}
-
-@MISC{radiance_caching,
-	title   = "Radiance Caching with Environment Maps",
-	author  = "Michael Buerli",
-	year    = "2013",
-	howpublished = {\url{http://digitalcommons.calpoly.edu/theses/991/}}
 }
 
 @article{hydrology,
