@@ -230,6 +230,8 @@ See Figure \ref{fig:fbm1} for an example of fractal noise.
 An additional step can be added before summing each individual octave.
 By first taking the negated absolute value of each generated noise value, a ridged version of fractional brownian motion can be created.
 This technique is commonly referred to as ridged fractal generator, or sometimes a turbulence generator \cite{perlin}.
+In addition, some ridged fractal implementations use the value from each octave to scale the value from the next octave, to further emphasize the shape of ridge lines \cite{libnoise_ridged}.
+We use this approach in our ridged noise generator.
 See Figure \ref{fig:ridged} for an example of ridged noise.
 
 \begin{figure}
