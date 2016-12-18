@@ -1,11 +1,12 @@
 
 \chapter{Results} \label{results}
 
-\section{System Evaluation}
-
 We have presented a system for generating and rendering large landscape scenes, supporting mountains, hills, forests, and lakes.
 This system supports large view distances while simultaneously supporting local in-game editing using a voxel system.
-As shown in Figures \ref{fig:screenshot00} through \ref{fig:screenshot06}, you can see the world’s generated are visually appealing and run at reasonable rates.
+As shown in Section \ref{sec:screenshots}, you can see the worlds generated are visually appealing and run at reasonable rates.
+Sections \ref{sec:results_voxels}, \ref{sec:results_clipmaps}, and \ref{sec:results_vegetation} discuss the performance considerations of the voxel, clipmaps, and forests systems respectively.
+
+\section{Full System Screenshots} \label{sec:screenshots}
 
 The following screenshots were rendered at around 180 frames per second with a 2560x1440 resolution.
 The test machine was a desktop computer with an Intel i7-5820K 3.3GHz CPU, a Nvidia GTX 980 GPU, and 16 GB of RAM.
@@ -130,7 +131,7 @@ These results indicate that that a chunk size of 32 or 64 is a good compromise b
 	\label{fig:voxel_plot_2}
 \end{figure}
 
-\section{Clipmaps}
+\section{Clipmaps} \label{sec:results_clipmaps}
 
 One major motivation for using geometry clipmaps is the exponential relationship between layer count and view distance.
 Figures \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
@@ -219,7 +220,7 @@ The addition of a geometry shader normal calculation simplifies the terrain gene
 We found a frame time increase of about 0.01 ms when using 11 layers.
 
 
-\section{Vegetation}
+\section{Vegetation} \label{sec:results_vegetation}
 
 The far layers of the vegetation system are rough visual approximations of the closeup tree meshes, but are significantly less costly for rendering.
 Figure \ref{fig:tree_plot_1} shows the cost of rendering a large number of each type of representation.
