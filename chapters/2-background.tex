@@ -35,14 +35,14 @@ The hardware interface also has some CPU overhead with regard to submitting draw
 
 As such, in order to render large scenes with a large number of scene elements, we need to account for level of detail.
 `Detail' in this context refers generally to the amount of geometry used to represent a scene element.
-Consider, for example, a tree.{}
+Consider, for example, a tree.
 A high-detail representation of a tree would consist of geometry to represent branches, individual leaves, and the shape of the trunk.
 A low-detail representation of a tree might simply consist of a trunk-colored box and a leaf-colored cone.
-See Figure~\ref{fig:trees} for an example of these representations.
+See Figure~\ref{fig:trees} for an example of high and low detail representations of a tree from our engine.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.0\textwidth]{figures/TreeComparison.png}
+		\includegraphics[width=1.0\textwidth]{figures/TreeComparison2.png}
 	\caption{On the left is an example of a high-detail tree, on the right is a low-detail tree.
 	While the low detail approximation may appear very crude, it is a reasonable substitution when the tree is so distant that it takes up only a few pixels of screenspace.}
 	\label{fig:trees}
