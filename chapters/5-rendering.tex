@@ -49,7 +49,7 @@ See Figure \ref{fig:voxelrejected} for an example.
 	\label{fig:voxelrejected}
 \end{figure}
 
-This trimming is performed to make the voxel triangulation easier to understand at a glance, and also to preserve smooth slopes of generated terrain.
+This trimming is performed to preserve smooth slopes of generated terrain.
 See Figures \ref{fig:trimcomparison1} and \ref{fig:trimcomparison2} for a comparison between untrimmed and trimmed sub-voxel configurations.
 
 \begin{figure}
@@ -84,8 +84,8 @@ In the trivial case, a completely solid voxel surrounded entirely by solid voxel
 
 \subsubsection{Interior faces}
 
-Interior faces are what make the pseudo-voxel system interesting - any diagonal face that caps a partial pseudo-voxel.
-See Figure \ref{fig:interiorfaces2} for a table of all interior faces.
+Interior faces are the triangles that are unique to Relic's voxel system, as opposed to an ordinary voxel system that only generates exterior faces.
+Interior faces have some form of diagonal slope see Figure \ref{fig:interiorfaces2} for a demonstration of each type of interior triangle that Relic generates.
 
 \begin{figure}
 	\centering
@@ -101,16 +101,24 @@ See Figure \ref{fig:interiorfaces2} for a table of all interior faces.
 
 \subsection{Rendering}
 
-The world is divided into cube chunks for which a triangle mesh is generated.
+The world is divided into chunks for triangulation and rendering purposes.
+Each chunk is a 16x16x16 volume of voxels.
+Relic generates voxels at a resolution of one voxel per foot, so each chunk is also 16x16x16 feet in dimension.
+
+One triangle mesh is generated per chunk.
 Each chunk tracks its neighbors in all six face directions so that occluded exterior faces can always be accurately detected.
 This means that a ring of non-visible chunks must be loaded around all visible chunks, since no visible chunk can have an unloaded neighbor.
+
+In order to determine which chunks are visible, a large sphere is placed around the camera and any chunk that intersects this sphere is loaded and rendered.
+As the camera moves, chunks that leave this sphere are unloaded and chunks that enter it are loaded.
 
 Screen-space ambient occlusion is used to help visual understanding of the voxel terrain shape.
 
 
 \section{Far Terrain} \label{clipterrain} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Far terrain is rendered using a flat-shaded implementation of geometry clipmaps with a few modifications.
+The voxel terrain described in the previous section is ideal for editability and representation of features such as overhangs and caves, but it is very expensive to both generate and render.
+In order to maximize the view distance of the Relic world, far terrain is rendered using a flat-shaded implementation of geometry clipmaps with a few modifications.
 
 \subsection{Pre-calculated Index Buffer}
 
@@ -119,6 +127,10 @@ This makes it possible to seamlessly transition to lower-resolution terrain when
 
 However, our system locks the size of each layer so that the index buffers can be pre-calculated.
 This was found to significantly reduce CPU overhead.
+This means that while the original geometry clipmaps algorithm would simply show less high-frequency detail when the viewpoint moves rapidly, our system slows down with increased load times when the viewpoint moves rapidly.
+However, our clipmaps implementation is part of an engine designed for a game, where player movement speed will inherently be limited by a physics simulation.
+In addition, rapid movement of the viewpoint will require all other systems (voxel terrain, forests, physics, etc.) to stop and load new data.
+As such, allowing the geometry clipmaps algorithm to continue running in this scenario would not be helpful.
 
 \subsection{Normal Calculation}
 
