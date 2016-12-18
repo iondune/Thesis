@@ -71,7 +71,7 @@ The region types used by the engine are: Oceans, Beaches, Fields, Forests, Hills
 While each region generator is individually responsible for generating elevation values, some noise sources are shared between the different regions so that smooth transitions can be generated.
 As an example, the Oceans, Fields, and Forests generators all share a distorted fractal noise source.
 
-\subsection{Oceans, Fields, Forests}
+\subsection{Oceans and Fields}
 
 The oceans, fields, and forests generators all simply add some high-frequency noise and coloring to the world map value with some scaling.
 This generates small sandy hills below water for Oceans, small grassy hills for Fields, and tree-covered hills for Forests.
@@ -86,34 +86,60 @@ The offset is applied gradually over a small area so that the cliffs are not com
 As the baseline elevation approaches the transition to Fields, the offset is tapered off to give cliffs some additional prominence.
 See Figure~\ref{fig:beach_cliffs}.
 
-Using the following bias and gain functions:
+The cliff generation offset function is as follows, where v is the map value:
 
 $$
-bias(x, factor) = \frac{x}{(\frac{1}{factor} - 2)*(1 - x) + 1}
-$$
-
-$$
-gain(x, factor) = \left\{\begin{array}{lr}
-	bias(x * 2, factor) / 2, & \text{for } 0 \leq x \leq 0.5 \\
-	bias(x * 2 - 1, 1 - gain) / 2 + 0.5, & \text{for } 0.5 < x \leq 1
+shoreline(v) = \left\{\begin{array}{lr}
+	0, & \text{for } 0 \leq x \leq \text{cliff\_start} \\
+	\text{cliff\textunderscore size} * \text{cliff\_falloff} * \text{cliff\_gain}, & \text{for } \text{cliff\_start} < x \leq 1
 \end{array}\right\}
 $$
 
-The exact size, shape, and shoreline distance of the cliffs are influenced by additional noise values.
+Where cliff\_gain and cliff\_falloff are both computed as follows, but clamped from 0 to 1:
+
+$$
+\text{cliff\_gain} = \frac{v - \text{cliff\_start}}{\text{cliff\_range}}
+$$
+
+$$
+\text{cliff\_falloff} = \frac{x - (\text{cliff\_start} + \text{cliff\_range})}{\text{falloff\_range}}
+$$
+
+The exact size, shape, and shoreline distance of the cliffs are configured by the parameters cliff\_start, cliff\_range, cliff\_size, and falloff\_range.
+Relic uses additional noise layers to add variance to these parameters, and adds applies a gain function to both cliff\_gain and cliff\_falloff to create a smoother final appearance.
 
 \begin{figure}
 	\centering
-		\includegraphics[width=0.4\textwidth]{figures/beachcliffs}
+		\includegraphics[width=0.8\textwidth]{figures/beachcliffs4x4}
 	\caption{Beach cliff generation}
 	\label{fig:beach_cliffs}
 \end{figure}
 
-\subsection{Hills, Mountains, Snowpeaks}
+\subsection{Forests, Hills, and Mountains}
 
-Hills, Mountains, and Snowpeaks all use a custom version of a ridged fractal generator.
+The Forests, Hills, and Mountains regions both use a custom version of a ridged fractal generator.
 
 For the first two octaves of noise, a standard gradient noise sample is used instead of the ridged version.
 This helps reduce the sharpness of some peaks and hides some unnatural artifacts that sometimes occur.
+Figure \ref{fig:original_ridged} shows the first few octaves of a ridged fractal generator without this modifications.
+The ridge lines established by the second octave have a large effect on the resulting image even as more octaves are added.
+The smoothness of these lines creates circular artifacts in the resulting terrain.
+Figure \ref{fig:my_ridged} shows the first few octaves of a ridged fractal generator with this modification.
+The effect is similar to lowering the amplitude and increasing the frequency of a normal ridged fractal generator but with large-scale variation preserved.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/original_ridged}
+	\caption{Two, Four, and Six octaves of a ridged fractal generator without our modification of using a standard fractal noise source for the first two octaves.}
+	\label{fig:original_ridged}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/my_ridged}
+	\caption{Four and Six octaves of a ridged fractal generator with our modification of using a standard fractal noise source for the first two octaves.}
+	\label{fig:my_ridged}
+\end{figure}
 
 In addition, a hilliness parameter is added to help smoothly transition between mountains and hills.
 When hilliness is 0, the standard absolute value is used.
@@ -121,4 +147,9 @@ At hilliness of 1, the input value is squared instead to produce a parabolic sha
 Hilliness values between 0 and 1 interpolate between these two shapes.
 
 At the low edge of Hill regions, a hilliness value of 1 is used along with low overall amplitude.
-As we transition into Mountain and Snowpeak regions, hilliness falls to 0 and amplitude increases.
+These same parameters are used at the high edge of the Forest region, and create smooth rolling hills of medium height.
+In the Mountain region, hilliness falls to 0 and amplitude increases to create sharp ridge lines and towering peaks.
+
+Mountain regions are colored by adding snow coverage over the region color specified by the world map.
+Snow is added whenever the angle between the normal of the surface and the up vector is smaller than some value.
+For high elevations, a large angle is used, and at low elevations a small angle is used.
