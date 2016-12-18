@@ -103,11 +103,12 @@ Interior faces have some form of diagonal slope see Figure \ref{fig:interiorface
 	\label{fig:interiorfaces2}
 \end{figure}
 
-\subsection{Rendering}
+\subsection{Rendering} \label{sec:voxel_rendering}
 
 The world is divided into chunks for triangulation and rendering purposes.
-Each chunk is a 16x16x16 volume of voxels.
-Relic generates voxels at a resolution of one voxel per foot, so each chunk is also 16x16x16 feet in dimension.
+Each chunk is a 32x32x32 volume of voxels.
+Relic generates voxels at a resolution of one voxel per foot, so each chunk is also 32x32x32 feet in dimension.
+The size of voxel chunks is further discussed in Section \ref{sec:results_voxels}.
 
 One triangle mesh is generated per chunk.
 Each chunk tracks its neighbors in all six face directions so that occluded exterior faces can always be accurately detected.
@@ -146,16 +147,11 @@ Our implementation uses a per-triangle normal calculation in a geometry shader s
 This saves significant CPU time as normals don't need to be pre-calculated or sent to the GPU normal map.
 The addition of the geometry shader was found to not have a significant decrease in rendering performance.
 
-\subsection{Terrain Blending}
+\section{Terrain Blending} \label{blending} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In order to use both the near and far terrain representations, Relic implements a blend region between the two systems.
-This blend is implemented in a post-processing pass that uses separate frame buffers for each terrain representation.
-The algorithm operates on individual fragments.
-If both systems are visible at a given fragment, and the distance to the fragment is near the maximum distance of the near terrain representation, a blend of the two systems is used.
-For all other fragments, the near terrain fragment is selected if it is visible, otherwise the far terrain fragment is selected.
-However, if only the far terrain fragment is visible but the distance is closer to the viewpoint than the start of the blend region, the fragment is discarded.
-This is to prevent visual artifacts when the far terrain representation happens to be higher on the Y axis than the near representation.
-See Figure \ref{fig:terrain_overlap} for an example of where this artifact may occur.
+In general, the near terrain is simply rendered on top of the far terrain (ignoring the actual depth of either geometry).
+However, we implement a blend region between the two representations so that the transition is smoother, and there is an additional caveat that must be addressed.
 
 \begin{figure}
 	\centering
@@ -168,14 +164,49 @@ See Figure \ref{fig:terrain_overlap} for an example of where this artifact may o
 	\label{fig:terrain_overlap}
 \end{figure}
 
+Consider the side-profile view of both terrain systems shown in \ref{fig:terrain_overlap}.
+In the red regions, only the near terrain is visible, so no additional work needs to be done.
+In the purple regions, both terrains are visible, but our choice of rendering the near terrain on top will ensure that only the near terrain is visible.
+The blue region is the problem area.
+From this viewpoint, there is a dip in the near terrain geometry but the smoother far terrain representation cuts through this gap.
+At this distance we only want to see the near representation.
+Figure \ref{fig:terrain_protrusion} shows how this effect appears in-engine.
+Relic solves this problem by simply culling any fragments from the far terrain representation that are closer than a given threshold.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.0\textwidth]{figures/terrain_protrusion}
+	\caption{
+		Example of the effect described in Figure \ref{fig:terrain_overlap} shown in-engine.
+		In the left image, the far terrain geometry is visible above the near terrain.
+		In the right image, it is culled properly.
+	}
+	\label{fig:terrain_protrusion}
+\end{figure}
+
+Relic also implements a blend between the two terrain representations.
+This blend is implemented in a post-processing pass that uses separate frame buffers for each terrain representation.
+The algorithm operates on individual fragments.
+If both systems are visible at a given fragment, and the distance to the fragment is near the maximum distance of the near terrain representation, a blend of the two systems is used.
+For all other fragments, the near terrain fragment is selected if it is visible, otherwise the far terrain fragment is selected.
+
+\subsection{Terrain Summary}
+
+Terrain is rendered using both a voxel representation and a clipmap representation.
+The voxel representation supports editing and 3D terrain features such as cliffs, overhangs, and caves.
+However, the voxel system is costly to generate and render.
+A geometry clipmaps implementation is used to support a large terrain view distance beyond where the voxel representation ends.
+The blend pass described in Section \ref{blending} is used to merge these two terrain representations.
+
 
 \section{Forests} \label{forests} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Our vegetation system currently supports rendering a large number of low-poly spruce trees, but could be expanded to support other types of vegetation.
 The system uses three levels of detail: mesh instances, impostors, and mesh facades.
 
-Trees are rendered in groups similar to the chunk system used by nearby terrain.
-Mesh instances and impostors render many trees per group, whereas the mesh facade renders a single mesh to represent each group.
+Trees are rendered in chunks similar to the chunk system used by nearby terrain.
+Each chunk represents an 80x80 foot area of forested terrain.
+A chunk contains at most 100 tree meshes or impostors, or is represented by a single facade mesh.
 
 \subsection{Mesh Instances}
 
@@ -215,6 +246,33 @@ See Figure \ref{fig:tree_facades} for a comparison between mesh facades up close
 	}
 	\label{fig:tree_facades}
 \end{figure}
+
+\subsection{Rendering}
+
+Chunks within a certain distance are rendered as meshes.
+Chunks within a farther distance are rendered as impostors.
+Finally, any chunk beyond the impostor distance is rendered as a facade.
+
+The system therefor has three configurable tree distance parameters.
+We found that the values in Table \ref{tab:tree_distance} worked well.
+Increasing any view distance reduces the visual artifacts from using a low-detail representation, but decreases performance.
+
+\begin{table}
+	\centering
+	\begin{tabular}{ || c | c || }
+		\hline
+		Representation & Distance \\ [0.5ex]
+		\hline\hline
+		Mesh Instance & 2 \\
+		\hline
+		Impostor & 16 \\
+		\hline
+		Facade & 32 \\
+		\hline
+	\end{tabular}
+	\caption{Tree view distances expressed in chunk widths.}
+	\label{tab:tree_distance}
+\end{table}
 
 \section{Water} \label{sec:water} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -262,3 +320,14 @@ However, floating point precision is higher for values closer to zero.
 By storing near depths at one and far depths at zero, the additional floating point precision creates a pseudo-logarithmic distribution of depth values.
 
 This results in a significant reduction in depth precision artifacts.
+
+
+\section{Rendering Summary}
+
+The primary rendering components of Relic are a nearby terrain renderer, a distant terrain renderer, and a forest renderer.
+
+The nearby terrain renderer uses a voxel representation that is meshed using our novel sub-voxel system.
+Far terrain is rendered using geometry clipmaps with some modifications.
+
+Relic's forest system uses mesh instances, impostors, and facade meshes to render forests with a large view distance.
+Finally, Relic includes a system to render water, a sky sphere, and atmospheric scattering.
