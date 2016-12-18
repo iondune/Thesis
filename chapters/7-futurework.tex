@@ -1,9 +1,15 @@
 
 \chapter{Future Work} \label{futurework}
 
-\section{Terrain Lighting}
+The system introduced supports multiple terrain types and render attributes, however the major limitations at this time are the quality of the generated terrain, the lack of advanced lighting calculations, and the view distance of the forest rendering system.
 
-\subsection{Shadows}
+\section{Improved Terrain}
+
+Our presented terrain system produces vast mountain ranges, lakes, and continents.
+However, only a few terrain types are supported and at the highest resolution (the resolution the player primarily experiences) a lot of the terrain lacks interesting features.
+In the future we would like to expand our terrain generation system using some of the techniques from G{\'e}nevaux et al. to add sophisticated water systems and more small-scale terrain features \cite{hydrology}.
+
+\section{Terrain Lighting}
 
 Besides the HBAO+ post-processing pass applied to the whole scene, no shadows are currently calculated.
 The scene is inherently difficult to shadow due to the large view scales.
@@ -29,18 +35,6 @@ It might also be better to use a non-photo-realistic color-ramp scattering simul
 Nvidia Gameworks, which Relic uses for screen-space ambient occlusion, also has an implementation of volumetric lighting that could be used for more accurate sunset and sunrise effects \cite{nvidia_volumetric}.
 
 
-\section{Water}
-
-Our water system uses the shape of geometry clipmaps for simplicity but this causes a lot of water vertices to be rendered off-screen.
-Using a grid projected from screen-space is one way to efficiently render water at different view scales \cite{bruneton_water}.
-
-
-\section{Terrain Generation}
-
-Our system uses a standard grid to store the world map, but this brings some square artifacts into the large-scale terrain features.
-Other similar systems use a Voronoi diagram to produce more varied large-scale structure \cite{polygonal_map}.
-
-
 \section{Vegetation}
 
 While the mesh facade rendering system is cheap, it is a very rough visual approximation of distance forests.
@@ -48,3 +42,9 @@ It is also not sufficiently cheap to render at significant scale.
 As such, the current system has a much shorter view distance for vegetation than it does for terrain.
 
 Using a GPU ray-cast simulation of forests could produce much larger view distances and improved visual approximation. \cite{terraintreecast}
+
+
+\section{Water}
+
+Our water system uses the shape of geometry clipmaps for simplicity but this causes a lot of water vertices to be rendered off-screen.
+Using a grid projected from screen-space is one way to efficiently render water at different view scales \cite{bruneton_water}.
