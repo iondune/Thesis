@@ -1,7 +1,11 @@
 
 \chapter{Results} \label{results}
 
-\section{Images}
+\section{System Evaluation}
+
+We have presented a system for generating and rendering large landscape scenes, supporting mountains, hills, forests, and lakes.
+This system supports large view distances while simultaneously supporting local in-game editing using a voxel system.
+As shown in Figures \ref{fig:screenshot00} through \ref{fig:screenshot06}, you can see the world’s generated are visually appealing and run at reasonable rates.
 
 The following screenshots were rendered at around 180 frames per second with a 2560x1440 resolution.
 The test machine was a desktop computer with an Intel i7-5820K 3.3GHz CPU, a Nvidia GTX 980 GPU, and 16 GB of RAM.
@@ -63,8 +67,11 @@ Figure \ref{fig:screenshot05} shows a lake and figure \ref{fig:screenshot06} sho
 \section{Voxels} \label{sec:results_voxels}
 
 The size of voxel chunks affects rendering performance and the cost of modification.
+Voxel size is measured in voxels, which in Relic maps one-to-one with world units, or feet.
+
 Since modifying the terrain requires the entire chunk mesh to be reconstructed, it is ideal to have smaller chunks.
 However, larger chunk sizes reduce the number of draw calls.
+
 Figure \ref{fig:voxel_plot_1} shows the relationship between chunk size and render performance for a fixed view distance.
 Since the same amount of geometry is rendered for each chunk size tested, the decrease in performance at low chunk size can be attributed to draw calls and other engine overhead.
 Figure \ref{fig:voxel_plot_2} shows the modification cost for each chunk size.
@@ -125,7 +132,7 @@ These results indicate that that a chunk size of 32 or 64 is a good compromise b
 
 \section{Clipmaps}
 
-One major motivation for using geometry clipmaps  is the exponential relationship between layer count and view distance.
+One major motivation for using geometry clipmaps is the exponential relationship between layer count and view distance.
 Figures \ref{fig:clipmaps_plot_1} and \ref{fig:clipmaps_plot_2} show the relationship between clipmap layers, view distance, and frame time in milliseconds for a scene containing only the clipmaps terrain and a skybox.
 
 \begin{figure}
