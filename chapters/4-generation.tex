@@ -63,6 +63,9 @@ See \ref{tab:regions} for the exact world map values used to determine regions.
 	\label{tab:regions}
 \end{table}
 
+The world map can usually be used to generate color values, i.e. the color from the image in \ref{fig:worldmap} is used by each region generator.
+However, the Mountains generator in Section \ref{sec:mountains} does some additional coloring.
+
 For each region, a ``region delta'' is calculated to indicate how far into a region the engine is currently generating data for.
 A region delta of \(0.0\) indicates the boundary with the next lower elevation region, \(1.0\) indicates the higher boundary, and \(0.5\) indicates the middle of the region.
 
@@ -73,7 +76,7 @@ As an example, the Oceans, Fields, and Forests generators all share a distorted 
 
 \subsection{Oceans and Fields}
 
-The oceans, fields, and forests generators all simply add some high-frequency noise and coloring to the world map value with some scaling.
+The oceans, fields, and forests generators all simply add some high-frequency noise to the world map value with some scaling.
 This generates small sandy hills below water for Oceans, small grassy hills for Fields, and tree-covered hills for Forests.
 
 \subsection{Beaches}
@@ -115,7 +118,7 @@ Relic uses additional noise layers to add variance to these parameters, and adds
 	\label{fig:beach_cliffs}
 \end{figure}
 
-\subsection{Forests, Hills, and Mountains}
+\subsection{Forests, Hills, and Mountains} \label{sec:mountains}
 
 The Forests, Hills, and Mountains regions both use a custom version of a ridged fractal generator.
 
@@ -137,7 +140,7 @@ The effect is similar to lowering the amplitude and increasing the frequency of 
 \begin{figure}
 	\centering
 		\includegraphics[width=1.0\textwidth]{figures/my_ridged}
-	\caption{Four and Six octaves of a ridged fractal generator with our modification of using a standard fractal noise source for the first two octaves.}
+	\caption{Four and Six octaves of the ridged fractal generator used by Relic, where a standard fractal noise source is used for the first two octaves.}
 	\label{fig:my_ridged}
 \end{figure}
 
