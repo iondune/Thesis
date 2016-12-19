@@ -1246,7 +1246,7 @@ Thesis Committee Chair
 \def\ext@figure{lof}
 \def\fnum@figure{\figurename~\thefigure}
 \def\figure{\@float{figure}}
-\def\endfigure{\end@float}
+\let\endfigure\end@float
 \@namedef{figure*}{\@dblfloat{figure}}
 \@namedef{endfigure*}{\end@dblfloat}
 
@@ -1260,7 +1260,7 @@ Thesis Committee Chair
 \def\ext@table{lot}
 \def\fnum@table{\tablename~\thetable}
 \def\table{\@float{table}}
-\def\endtable{\end@float}
+\let\endtable\end@float
 \@namedef{table*}{\@dblfloat{table}}
 \@namedef{endtable*}{\end@dblfloat}
 
